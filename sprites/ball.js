@@ -7,8 +7,15 @@ $(function () {
             center: { x: 256, y: 256 },
             radius: 200,
             startingAngle: 0,
-            endingAngle: Math.PI*2,
+            endingAngle: Math.PI * 2,
             counterclockwise: true
+        },
+        {
+            center: { x: 500, y: 400},
+            radius: 100,
+            startingAngle: 0,
+            endingAngle: Math.PI * 2,
+            counterclockwise: false
         }
     ];
 
@@ -19,9 +26,19 @@ $(function () {
             r0: 1,
             x1: 180,
             y1: 180,
-            r1: 320,
+            r1: 220,
             color0: "white",
-            color1: "blue"
+            color1: "green"
+        },
+        {
+            x0: 460,
+            y0: 360,
+            r0: 1,
+            x1: 440,
+            y1: 340,
+            r1: 120,
+            color0: "white",
+            color1: "red"
         }
     ];
 
@@ -38,4 +55,5 @@ $(function () {
     };
 
     drawBall(balls[0], radialGradients[0]);
+    drawBall(balls[1], radialGradients[1]);
 });
