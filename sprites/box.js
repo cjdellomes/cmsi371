@@ -6,46 +6,21 @@ $(function () {
         {
             coordinates: { x: 256, y: 256 },
             dimensions: { w: 200, h: 150 },
-            lidAngle: -10*Math.PI/180
+            lidAngle: -10*Math.PI/180,
+            color: "blue"
         },
         {
             coordinates: { x: 600, y: 300 },
             dimensions: { w: 100, h: 300 },
-            lidAngle: -90 * Math.PI/180
+            lidAngle: -90 * Math.PI/180,
+            color: "orange"
         }
     ];
 
-    var radialGradients = [
-        {
-            x0: 200,
-            y0: 200,
-            r0: 1,
-            x1: 220,
-            y1: 220,
-            r1: 250,
-            color0: "white",
-            color1: "blue"
-        },
-        {
-            x0: 500,
-            y0: 220,
-            r0: 1,
-            x1: 520,
-            y1: 220,
-            r1: 240,
-            color0: "white",
-            color1: "orange"
-        }
-    ];
-
-    var drawBox = function (box, gradient) {
+    var drawBox = function (box) {
         renderingContext.save();
 
-        radialGradient = renderingContext.createRadialGradient(gradient.x0, gradient.y0, gradient.r0, gradient.x1, gradient.y1, gradient.r1);
-        radialGradient.addColorStop(0, gradient.color0);
-        radialGradient.addColorStop(1, gradient.color1);
-
-        renderingContext.fillStyle = radialGradient;
+        renderingContext.fillStyle = box.color;
         renderingContext.fillRect(box.coordinates.x, box.coordinates.y, box.dimensions.w, box.dimensions.h);
         renderingContext.translate(box.coordinates.x, box.coordinates.y);
         renderingContext.rotate(box.lidAngle);
@@ -56,6 +31,6 @@ $(function () {
         renderingContext.restore();
     };
 
-    drawBox(boxes[0], radialGradients[0]);
-    drawBox(boxes[1], radialGradients[1]);
+    drawBox(boxes[0]);
+    drawBox(boxes[1]);
 });
