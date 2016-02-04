@@ -6,20 +6,27 @@ $(function () {
         {
             center: { x: 256, y: 256 },
             radius: 200,
-            startingAngle: 0,
-            endingAngle: Math.PI * 2,
+            startingAngle: Math.PI * 1.75,
+            endingAngle: Math.PI * 0.25,
+            counterclockwise: true
+        },
+        {
+            center: { x: 600, y: 300},
+            radius: 100,
+            startingAngle: Math.PI * 1.95,
+            endingAngle: Math.PI * 0.05,
             counterclockwise: true
         }
     ];
 
     var radialGradients = [
         {
-            x0: 200,
-            y0: 200,
+            x0: 100,
+            y0: 100,
             r0: 1,
-            x1: 220,
-            y1: 220,
-            r1: 250,
+            x1: 150,
+            y1: 150,
+            r1: 170,
             color0: "white",
             color1: "yellow"
         }
@@ -34,13 +41,16 @@ $(function () {
 
         renderingContext.fillStyle = radialGradient;
         renderingContext.beginPath();
+        renderingContext.moveTo(pacman.center.x, pacman.center.y);
         renderingContext.arc(pacman.center.x, pacman.center.y, pacman.radius, pacman.startingAngle, pacman.endingAngle, pacman.counterclockwise);
-        renderingContext.closePath();
+        renderingContext.lineTo(pacman.center.x, pacman.center.y);
+        renderingContext.stroke();
         renderingContext.fill();
 
         renderingContext.restore();
     };
 
     drawPacman(pacmans[0], radialGradients[0]);
+    drawPacman(pacmans[1], radialGradients[0]);
 
 });
