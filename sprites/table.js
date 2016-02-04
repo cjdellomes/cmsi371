@@ -4,12 +4,14 @@ $(function () {
 
     var tables = [
         {
-            center: { x: 256, y: 256 },
-            legWidth:50,
-            legHeight:200,
-            tableWidth:200,
-            tableHeight:30,
-            legDistance:100
+            tableCoordinates: { x: 100, y: 100 },
+            tableDimensions: { w: 200, h: 30 },
+            legDimensions: { w: 20, h: 200 }
+        },
+        {
+            tableCoordinates: { x: 400, y: 300 },
+            tableDimensions: { w: 300, h: 10 },
+            legDimensions: { w: 10, h: 30}
         }
     ];
 
@@ -33,10 +35,16 @@ $(function () {
         radialGradient.addColorStop(0, gradient.color0);
         radialGradient.addColorStop(1, gradient.color1);
 
-        renderingContext.fillStyle(radialGradient);
+        renderingContext.fillStyle = radialGradient;
+        renderingContext.beginPath();
+        renderingContext.fillRect(table.tableCoordinates.x, table.tableCoordinates.y, table.tableDimensions.w, table.tableDimensions.h);
+        renderingContext.fillRect(table.tableCoordinates.x, table.tableCoordinates.y + table.tableDimensions.h, table.legDimensions.w, table.legDimensions.h);
+        renderingContext.fillRect(table.tableCoordinates.x + table.tableDimensions.w - table.legDimensions.w, table.tableCoordinates.y + table.tableDimensions.h, table.legDimensions.w, table.legDimensions.h);
+        renderingContext.stroke();
 
         renderingContext.restore();
     };
 
     drawTable(tables[0], radialGradients[0]);
+    drawTable(tables[1], radialGradients[0]);
 });

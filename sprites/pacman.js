@@ -11,7 +11,7 @@ $(function () {
             counterclockwise: true
         },
         {
-            center: { x: 600, y: 300},
+            center: { x: 600, y: 300 },
             radius: 100,
             startingAngle: Math.PI * 1.95,
             endingAngle: Math.PI * 0.05,

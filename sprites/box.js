@@ -4,13 +4,13 @@ $(function () {
 
     var boxes = [
         {
-            coordinates: { x: 256, y: 256},
-            dimensions: { w: 200, h: 150},
+            coordinates: { x: 256, y: 256 },
+            dimensions: { w: 200, h: 150 },
             lidAngle: -10*Math.PI/180
         },
         {
-            coordinates: { x: 600, y: 300},
-            dimensions: { w: 100, h:300},
+            coordinates: { x: 600, y: 300 },
+            dimensions: { w: 100, h: 300 },
             lidAngle: -90 * Math.PI/180
         }
     ];
@@ -38,7 +38,7 @@ $(function () {
         }
     ];
 
-    var drawBox = function (box, gradient) {
+    var drawBox = function (box, gradient) {
         renderingContext.save();
 
         radialGradient = renderingContext.createRadialGradient(gradient.x0, gradient.y0, gradient.r0, gradient.x1, gradient.y1, gradient.r1);
