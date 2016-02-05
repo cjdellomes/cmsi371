@@ -5,7 +5,8 @@ $(function () {
     var boxes = [
         {
             coordinates: { x: 900, y: 256 },
-            dimensions: { w: 200, h: 150 },
+            boxDimensions: { w: 200, h: 150 },
+            lidHeight: 15,
             lidAngle: -30*Math.PI/180,
             color: "blue"
         }
@@ -15,12 +16,11 @@ $(function () {
         renderingContext.save();
 
         renderingContext.fillStyle = box.color;
-        renderingContext.fillRect(box.coordinates.x, box.coordinates.y, box.dimensions.w, box.dimensions.h);
+        renderingContext.fillRect(box.coordinates.x, box.coordinates.y, box.boxDimensions.w, box.boxDimensions.h);
         renderingContext.translate(box.coordinates.x, box.coordinates.y);
         renderingContext.rotate(box.lidAngle);
         renderingContext.translate(-box.coordinates.x, -box.coordinates.y)
-        renderingContext.fillRect(box.coordinates.x, box.coordinates.y-(box.dimensions.h * .11), box.dimensions.w, box.dimensions.h * .1);
-        //renderingContext.stroke();
+        renderingContext.fillRect(box.coordinates.x, box.coordinates.y-(box.boxDimensions.h * .11), box.boxDimensions.w, box.lidHeight);
 
         renderingContext.restore();
     };
