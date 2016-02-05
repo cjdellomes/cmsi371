@@ -15,7 +15,7 @@ $(function () {
                 r0: 1,
                 x1: 480,
                 y1: 210,
-                r1: 250,
+                r1: 200,
                 color0: "white",
                 color1: "green"
             }

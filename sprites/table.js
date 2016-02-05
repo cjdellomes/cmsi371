@@ -6,8 +6,8 @@ $(function () {
         {
             tableCoordinates: { x: 400, y: 550 },
             tableDimensions: { w: 300, h: 10 },
-            legDimensions: { w: 10, h: 30},
-            color: "black"
+            legDimensions: { w: 10, h: 50},
+            color: "brown"
         }
     ];
 

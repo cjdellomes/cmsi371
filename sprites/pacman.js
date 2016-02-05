@@ -10,12 +10,12 @@ $(function () {
             endingAngle: Math.PI * 0.25,
             counterclockwise: true,
             gradient: {
-                x0: 100,
-                y0: 100,
+                x0: 80,
+                y0: 80,
                 r0: 1,
-                x1: 130,
-                y1: 130,
-                r1: 150,
+                x1: 120,
+                y1: 120,
+                r1: 130,
                 color0: "white",
                 color1: "yellow"
             }
