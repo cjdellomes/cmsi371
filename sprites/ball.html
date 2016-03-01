@@ -14,5 +14,28 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="ball.js"></script>
+
+    <script>
+      var balls = [
+        {
+          center: { x: 600, y: 300 },
+          radius: 100,
+          startingAngle: 0,
+          endingAngle: Math.PI * 2,
+          counterclockwise: true,
+          gradient: {
+            x0: 430,
+            y0: 200,
+            r0: 1,
+            x1: 480,
+            y1: 210,
+            r1: 200,
+            color0: "white",
+            color1: "green"
+          }
+        }
+      ];
+      SpriteLibrary.ball(balls[0]);
+    </script>
   </body>
 </html>

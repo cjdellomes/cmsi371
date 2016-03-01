@@ -1,28 +1,10 @@
-$(function () {
-    var canvas = $("#canvas")[0];
-    var renderingContext = canvas.getContext("2d");
+(function () {
 
-    var balls = [
-        {
-            center: { x: 600, y: 300 },
-            radius: 100,
-            startingAngle: 0,
-            endingAngle: Math.PI * 2,
-            counterclockwise: true,
-            gradient: {
-                x0: 430,
-                y0: 200,
-                r0: 1,
-                x1: 480,
-                y1: 210,
-                r1: 200,
-                color0: "white",
-                color1: "green"
-            }
-        }
-    ];
+    window.SpriteLibrary =  window.SpriteLibrary || {};
+    SpriteLibrary.ball = function (ball) {
+        var canvas = $("#canvas")[0];
+        var renderingContext = canvas.getContext("2d");
 
-    var drawBall = function (ball) {
         renderingContext.save();
 
         radialGradient = renderingContext.createRadialGradient(ball.gradient.x0, 
@@ -40,5 +22,4 @@ $(function () {
         renderingContext.restore();
     };
 
-    drawBall(balls[0]);
-});
+}());
