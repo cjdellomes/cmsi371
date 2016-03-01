@@ -14,5 +14,35 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="pacman.js"></script>
+
+    <script>
+      (function () {
+        var canvas = document.getElementById("canvas");
+        var renderingContext = canvas.getContext("2d");
+        var pacmans = [
+          {
+            renderingContext: renderingContext,
+            center: { x: 0, y: 0 },
+            radius: 200,
+            startingAngle: Math.PI * 1.75,
+            endingAngle: Math.PI * 0.25,
+            counterclockwise: true,
+            gradient: {
+                x0: -150,
+                y0: -150,
+                r0: 1,
+                x1: -90,
+                y1: -90,
+                r1: 130,
+                color0: "white",
+                color1: "yellow"
+            }
+          },
+        ];
+        renderingContext.save();
+        renderingContext.translate(200, 200);
+        SpriteLibrary.pacman(pacmans[0]);
+      }());
+    </script>
   </body>
 </html>

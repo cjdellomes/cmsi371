@@ -1,28 +1,10 @@
-$(function () {
-    var canvas = $("#canvas")[0];
-    var renderingContext = canvas.getContext("2d");
+(function () {
 
-    var pacmans = [
-        {
-            center: { x: 256, y: 256 },
-            radius: 200,
-            startingAngle: Math.PI * 1.75,
-            endingAngle: Math.PI * 0.25,
-            counterclockwise: true,
-            gradient: {
-                x0: 80,
-                y0: 80,
-                r0: 1,
-                x1: 120,
-                y1: 120,
-                r1: 130,
-                color0: "white",
-                color1: "yellow"
-            }
-        },
-    ];
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.pacman = function (pacman) {
 
-    var drawPacman = function (pacman) {
+        renderingContext = pacman.renderingContext;
+
         renderingContext.save();
 
         radialGradient = renderingContext.createRadialGradient(pacman.gradient.x0, pacman.gradient.y0, 
@@ -41,6 +23,4 @@ $(function () {
 
         renderingContext.restore();
     };
-
-    drawPacman(pacmans[0]);
-});
+}());
