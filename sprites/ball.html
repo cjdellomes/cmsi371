@@ -16,26 +16,33 @@
     <script src="ball.js"></script>
 
     <script>
-      var balls = [
-        {
-          center: { x: 600, y: 300 },
-          radius: 100,
-          startingAngle: 0,
-          endingAngle: Math.PI * 2,
-          counterclockwise: true,
-          gradient: {
-            x0: 430,
-            y0: 200,
-            r0: 1,
-            x1: 480,
-            y1: 210,
-            r1: 200,
-            color0: "white",
-            color1: "green"
+      (function () {
+        var canvas = document.getElementById("canvas");
+        var renderingContext = canvas.getContext("2d");
+        var balls = [
+          {
+            renderingContext: renderingContext,
+            center: { x: 0, y: 0 },
+            radius: 100,
+            startingAngle: 0,
+            endingAngle: Math.PI * 2,
+            counterclockwise: true,
+            gradient: {
+              x0: -70,
+              y0: -70,
+              r0: 1,
+              x1: -30,
+              y1: -30,
+              r1: 100,
+              color0: "white",
+              color1: "green"
+            }
           }
-        }
-      ];
-      SpriteLibrary.ball(balls[0]);
+        ];
+        renderingContext.save();
+        renderingContext.translate(200,200);
+        SpriteLibrary.ball(balls[0]);
+      }());
     </script>
   </body>
 </html>

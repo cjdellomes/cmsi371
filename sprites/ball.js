@@ -2,8 +2,8 @@
 
     window.SpriteLibrary =  window.SpriteLibrary || {};
     SpriteLibrary.ball = function (ball) {
-        var canvas = $("#canvas")[0];
-        var renderingContext = canvas.getContext("2d");
+
+        renderingContext = ball.renderingContext;
 
         renderingContext.save();
 
