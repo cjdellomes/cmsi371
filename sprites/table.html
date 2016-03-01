@@ -14,5 +14,24 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="table.js"></script>
+
+    <script>
+      (function () {
+        var canvas = document.getElementById("canvas");
+        var renderingContext = canvas.getContext("2d");
+        var tables = [
+          {
+            renderingContext: renderingContext,
+            tableCoordinates: { x: 0, y: 0 },
+            tableDimensions: { w: 300, h: 10 },
+            legDimensions: { w: 10, h: 50 },
+            color: "brown"
+          }
+        ];
+        renderingContext.save();
+        renderingContext.translate(200, 200);
+        SpriteLibrary.table(tables[0]);
+      }());
+    </script>
   </body>
 </html>

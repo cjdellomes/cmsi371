@@ -23,4 +23,5 @@
 
         renderingContext.restore();
     };
+
 }());

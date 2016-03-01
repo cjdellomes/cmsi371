@@ -1,17 +1,10 @@
-$(function () {
-    var canvas = $("#canvas")[0];
-    var renderingContext = canvas.getContext("2d");
+(function () {
 
-    var tables = [
-        {
-            tableCoordinates: { x: 400, y: 550 },
-            tableDimensions: { w: 300, h: 10 },
-            legDimensions: { w: 10, h: 50 },
-            color: "brown"
-        }
-    ];
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.table = function (table) {
 
-    var drawTable = function (table) {
+        renderingContext = table.renderingContext;
+
         renderingContext.save();
 
         renderingContext.fillStyle = table.color;
@@ -25,5 +18,4 @@ $(function () {
         renderingContext.restore();
     };
 
-    drawTable(tables[0]);
-});
+}());
