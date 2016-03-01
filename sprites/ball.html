@@ -17,8 +17,10 @@
 
     <script>
       (function () {
+
         var canvas = document.getElementById("canvas");
         var renderingContext = canvas.getContext("2d");
+
         var balls = [
           {
             renderingContext: renderingContext,
@@ -39,9 +41,12 @@
             }
           }
         ];
+
         renderingContext.save();
         renderingContext.translate(200,200);
         SpriteLibrary.ball(balls[0]);
+        renderingContext.restore();
+
       }());
     </script>
   </body>

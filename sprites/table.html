@@ -17,8 +17,10 @@
 
     <script>
       (function () {
+
         var canvas = document.getElementById("canvas");
         var renderingContext = canvas.getContext("2d");
+
         var tables = [
           {
             renderingContext: renderingContext,
@@ -28,9 +30,12 @@
             color: "brown"
           }
         ];
+
         renderingContext.save();
         renderingContext.translate(200, 200);
         SpriteLibrary.table(tables[0]);
+        renderingContext.restore();
+
       }());
     </script>
   </body>
