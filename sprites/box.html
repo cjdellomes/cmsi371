@@ -14,5 +14,25 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="box.js"></script>
+
+    <script>
+      (function () {
+        var canvas = document.getElementById("canvas");
+        var renderingContext = canvas.getContext("2d");
+        var boxes = [
+          {
+            renderingContext: renderingContext,
+            coordinates: { x: 0, y: 0 },
+            boxDimensions: { w: 200, h: 150 },
+            lidHeight: 15,
+            lidAngle: -30*Math.PI/180,
+            color: "blue"
+          }
+        ];
+        renderingContext.save();
+        renderingContext.translate(200, 200);
+        SpriteLibrary.box(boxes[0]);
+      }());
+    </script>
   </body>
 </html>

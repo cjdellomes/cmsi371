@@ -1,18 +1,10 @@
-$(function () {
-    var canvas = $("#canvas")[0];
-    var renderingContext = canvas.getContext("2d");
+(function () {
 
-    var boxes = [
-        {
-            coordinates: { x: 900, y: 256 },
-            boxDimensions: { w: 200, h: 150 },
-            lidHeight: 15,
-            lidAngle: -30*Math.PI/180,
-            color: "blue"
-        }
-    ];
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.box = function (box) {
 
-    var drawBox = function (box) {
+        renderingContext = box.renderingContext;
+
         renderingContext.save();
 
         renderingContext.fillStyle = box.color;
@@ -27,5 +19,4 @@ $(function () {
         renderingContext.restore();
     };
 
-    drawBox(boxes[0]);
-});
+}());
