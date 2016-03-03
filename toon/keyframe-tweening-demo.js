@@ -33,14 +33,14 @@
                     frame: 0,
                     tx: 20,
                     ty: 20,
-                    ease: KeyframeTweener.cubicEaseIn
+                    ease: KeyframeTweener.cubicShrink
                 },
 
                 {
                     frame: 30,
                     tx: 100,
                     ty: 50,
-                    ease: KeyframeTweener.quadEaseInOut
+                    ease: KeyframeTweener.cubicGrow
                 },
 
                 // The last keyframe does not need an easing function.
@@ -62,7 +62,7 @@
                     ty: 600,
                     sx: 0.5,
                     sy: 0.5,
-                    ease: KeyframeTweener.quadEaseOut
+                    ease: KeyframeTweener.cubicEaseIn
                 },
 
                 {
