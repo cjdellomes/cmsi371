@@ -7,17 +7,18 @@
 
         renderingContext.save();
 
-        radialGradient = renderingContext.createRadialGradient(pacman.gradient.x0, pacman.gradient.y0, 
-            pacman.gradient.r0, pacman.gradient.x1, pacman.gradient.y1, pacman.gradient.r1);
-        radialGradient.addColorStop(0, pacman.gradient.color0);
-        radialGradient.addColorStop(1, pacman.gradient.color1);
+        color = pacman.color || "yellow";
+        radius = pacman.radius || 200;
+        startingAngle = pacman.startingAngle || Math.PI * 1.75;
+        endingAngle = pacman.endingAngle || Math.PI * 0.25;
+        counterclockwise = pacman.counterclockwise || true;
 
-        renderingContext.fillStyle = radialGradient;
+        renderingContext.fillStyle = color;
         renderingContext.beginPath();
-        renderingContext.moveTo(pacman.center.x, pacman.center.y);
-        renderingContext.arc(pacman.center.x, pacman.center.y, pacman.radius, pacman.startingAngle, 
-            pacman.endingAngle, pacman.counterclockwise);
-        renderingContext.lineTo(pacman.center.x, pacman.center.y);
+        renderingContext.moveTo(0, 0);
+        renderingContext.arc(0, 0, radius, startingAngle, 
+            endingAngle, counterclockwise);
+        renderingContext.lineTo(0, 0);
         renderingContext.closePath();
         renderingContext.fill();
 

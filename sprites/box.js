@@ -7,14 +7,19 @@
 
         renderingContext.save();
 
-        renderingContext.fillStyle = box.color;
-        renderingContext.fillRect(box.coordinates.x, box.coordinates.y, 
-            box.boxDimensions.w, box.boxDimensions.h);
-        renderingContext.translate(box.coordinates.x, box.coordinates.y);
-        renderingContext.rotate(box.lidAngle);
-        renderingContext.translate(-box.coordinates.x, -box.coordinates.y)
-        renderingContext.fillRect(box.coordinates.x, box.coordinates.y-(box.boxDimensions.h * .11), 
-            box.boxDimensions.w, box.lidHeight);
+        color = box.color || "blue";
+        boxDimensions = box.boxDimensions || { w: 200, h: 150 };
+        lidHeight = box.lidHeight || 15;
+        lidAngle = box.lidAngle || -30 * Math.PI / 180;
+
+        renderingContext.fillStyle = color;
+        renderingContext.fillRect(0, 0,
+            boxDimensions.w, boxDimensions.h);
+        renderingContext.translate(0, 0);
+        renderingContext.rotate(lidAngle);
+        renderingContext.translate(0, 0)
+        renderingContext.fillRect(0, -(boxDimensions.h * .11), 
+            boxDimensions.w, lidHeight);
 
         renderingContext.restore();
     };

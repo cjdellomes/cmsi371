@@ -7,15 +7,16 @@
 
         renderingContext.save();
 
-        radialGradient = renderingContext.createRadialGradient(ball.gradient.x0, 
-            ball.gradient.y0, ball.gradient.r0, ball.gradient.x1, ball.gradient.y1, ball.gradient.r1);
-        radialGradient.addColorStop(0, ball.gradient.color0);
-        radialGradient.addColorStop(1, ball.gradient.color1);
+        color = ball.color || "blue";
+        radius = ball.radius || 100;
+        startingAngle = ball.startingAngle || 0;
+        endingAngle = ball.endingAngle || Math.PI * 2;
+        counterClockwise = ball.counterClockwise || false;
 
-        renderingContext.fillStyle = radialGradient;
+        renderingContext.fillStyle = color;
         renderingContext.beginPath();
-        renderingContext.arc(ball.center.x, ball.center.y, ball.radius, 
-            ball.startingAngle, ball.endingAngle, ball.counterclockwise);
+        renderingContext.arc(0, 0, radius,
+            startingAngle, endingAngle, counterClockwise);
         renderingContext.closePath();
         renderingContext.fill();
 

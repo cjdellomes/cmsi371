@@ -7,13 +7,17 @@
 
         renderingContext.save();
 
-        renderingContext.fillStyle = table.color;
-        renderingContext.fillRect(table.tableCoordinates.x, table.tableCoordinates.y, 
-            table.tableDimensions.w, table.tableDimensions.h);
-        renderingContext.fillRect(table.tableCoordinates.x, table.tableCoordinates.y + table.tableDimensions.h, 
-            table.legDimensions.w, table.legDimensions.h);
-        renderingContext.fillRect(table.tableCoordinates.x + table.tableDimensions.w - table.legDimensions.w, 
-            table.tableCoordinates.y + table.tableDimensions.h, table.legDimensions.w, table.legDimensions.h);
+        color = table.color || "brown";
+        tableDimensions = table.tableDimensions || { w: 300, h: 10 };
+        legDimensions = table.legDimensions || { w: 10, h: 50};
+
+        renderingContext.fillStyle = color;
+        renderingContext.fillRect(0, 0, 
+            tableDimensions.w, tableDimensions.h);
+        renderingContext.fillRect(0, tableDimensions.h, 
+            legDimensions.w, legDimensions.h);
+        renderingContext.fillRect(tableDimensions.w - legDimensions.w, 
+            tableDimensions.h, legDimensions.w, legDimensions.h);
 
         renderingContext.restore();
     };
