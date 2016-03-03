@@ -149,6 +149,10 @@
                     (distance / 2) * percentComplete * percentComplete + start :
                     (-distance / 2) * ((percentComplete - 1) * (percentComplete - 3) - 1) + start;
         },
+        cubicEaseIn: function (currentTime, start, distance, duration) {
+            var percentComplete = currentTime / duration;
+            return distance * Math.pow(percentComplete, 3) + start;
+        },
 
         initialize: initializeAnimation
     };

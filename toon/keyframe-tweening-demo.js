@@ -33,7 +33,7 @@
                     frame: 0,
                     tx: 20,
                     ty: 20,
-                    ease: KeyframeTweener.linear
+                    ease: KeyframeTweener.cubicEaseIn
                 },
 
                 {
