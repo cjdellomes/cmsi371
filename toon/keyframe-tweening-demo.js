@@ -129,7 +129,7 @@
                     ty: 20,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        
+                        radius: 10
                     }
                 },
 
@@ -139,7 +139,7 @@
                     ty: 50,
                     ease: KeyframeTweener.quadEaseOut,
                     parameters: {
-                        
+                        radius: 200
                     }
                 },
 
@@ -150,7 +150,7 @@
                     ty: 500,
                     rotate: 60, // Keyframe.rotate uses degrees.
                     parameters: {
-
+                        radius: 200
                     }
                 }
             ]

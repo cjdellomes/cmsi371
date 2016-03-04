@@ -116,11 +116,16 @@
                         var resultObject = {};
 
                         for (var k = 0, maxK = startParameterArray.length; k < maxK; k++) {
-                            var propertyStart = startKeyframe.parameters.startParameterArray[k];
-                            var propertyEnd = endKeyfram.parameters.endParameterArray[k];
+                            var key = startParameterArray[k];
+                            console.log(key);
+                            console.log(startKeyframe.parameters.key);
+                            var propertyStart = startKeyframe.parameters[key];
+                            console.log(propertyStart);
+                            var propertyEnd = endKeyframe.parameters[key];
+                            console.log(propertyEnd);
                             if (typeof propertyStart === typeof propertyEnd && typeof propertyStart === typeof 0) {
                                 var propertyDistance = propertyEnd - propertyStart;
-                                resultObject.startParameterArray[k] = ease(currentTweenFrame, propertyStart, propertyDistance, duration);   
+                                resultObject[key] = ease(currentTweenFrame, propertyStart, propertyDistance, duration);   
                             }
                         }
 
