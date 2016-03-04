@@ -153,13 +153,9 @@
             var percentComplete = currentTime / duration;
             return distance * Math.pow(percentComplete, 3) + start;
         },
-        cubicGrow: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / duration;
-            return distance * Math.pow(percentComplete, 3) + Math.pow(percentComplete, 3) + start;
-        },
-        cubicShrink: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / duration;
-            return distance * Math.pow(percentComplete, 3) - Math.pow(percentComplete, 3) + start;
+        cubicEaseOut: function (currentTime, start, distance, duration) {
+            var percentComplete = (currentTime / duration) - 1;
+            return distance * (Math.pow(percentComplete, 3) + 1) + start;
         },
 
         initialize: initializeAnimation
