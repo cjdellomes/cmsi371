@@ -118,7 +118,7 @@
     // intermediate frames are computed.
 
     // Now, to actually define the animated sprites.  Each sprite
-    // has a drawing function and an array of keyframes.
+    // has a drawing function and an array of keyframes which contain the keyframe sprite parameters.
     var sprites = [
         {
             draw: SpriteLibrary.ball,
@@ -150,7 +150,7 @@
                     ty: 500,
                     rotate: 60, // Keyframe.rotate uses degrees.
                     parameters: {
-                        radius: 200
+                        radius: 10
                     }
                 }
             ]
@@ -182,9 +182,8 @@
                     sy: 1,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
-                        boxDimensions: { w: 200, h: 150 },
                         lidHeight: 20,
-                        lidAngle: -10*Math.PI/180,
+                        lidAngle: -40*Math.PI/180,
                         color: "orange"
                     }
                 },
@@ -196,7 +195,6 @@
                     sx: 0.5,
                     sy: 0.5,
                     parameters: {
-                        boxDimensions: { w: 200, h: 150 },
                         lidHeight: 20,
                         lidAngle: -10*Math.PI/180,
                         color: "orange"
@@ -216,8 +214,8 @@
                     sy: 1,
                     ease: KeyframeTweener.cubicEaseOut,
                     parameters: {
-                        startingAngle: Math.PI * 1.75,
-                        endingAngle: Math.PI * 0.25
+                        startingAngle: Math.PI * 1.5,
+                        endingAngle: Math.PI * 0.5
                     }
                 },
 
@@ -229,8 +227,8 @@
                     sy: 1,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
-                        startingAngle: Math.PI * 1.95,
-                        endingAngle: Math.PI * 0.05
+                        startingAngle: Math.PI * 1.75,
+                        endingAngle: Math.PI * 0.25
                     }
                 },
 
@@ -241,8 +239,44 @@
                     sx: 0.5,
                     sy: 0.5,
                     parameters: {
-                        startingAngle: Math.PI * 1.95,
-                        endingAngle: Math.PI * 0.05
+                        startingAngle: Math.PI * 1.99,
+                        endingAngle: Math.PI * 0.01
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.table,
+            keyframes: [
+                {
+                    frame: 120,
+                    tx: 200,
+                    ty: 300,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        tableDimensions: { w: 300, h: 10 },
+                        legDimensions: { w: 10, h: 50 },
+                        color: "green"
+                    }
+                },
+
+                {
+                    frame: 145,
+                    tx: 300,
+                    ty: 300,
+                    ease: KeyframeTweener.quadEaseIn,
+                    parameters: {
+
+                    }
+                },
+
+                {
+                    frame: 185,
+                    tx: 100,
+                    ty: 300,
+                    parameters: {
+
                     }
                 }
             ]
