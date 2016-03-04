@@ -67,6 +67,53 @@
         renderingContext.restore();
     };
 
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.pacman = function (pacman) {
+
+        renderingContext = pacman.renderingContext || document.getElementById("canvas").getContext("2d");
+
+        renderingContext.save();
+
+        color = pacman.color || "yellow";
+        radius = pacman.radius || 200;
+        startingAngle = pacman.startingAngle || Math.PI * 1.75;
+        endingAngle = pacman.endingAngle || Math.PI * 0.25;
+        counterclockwise = pacman.counterclockwise || true;
+
+        renderingContext.fillStyle = color;
+        renderingContext.beginPath();
+        renderingContext.moveTo(0, 0);
+        renderingContext.arc(0, 0, radius, startingAngle, 
+            endingAngle, counterclockwise);
+        renderingContext.lineTo(0, 0);
+        renderingContext.closePath();
+        renderingContext.fill();
+
+        renderingContext.restore();
+    };
+
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.table = function (table) {
+
+        renderingContext = table.renderingContext || document.getElementById("canvas").getContext("2d");
+
+        renderingContext.save();
+
+        color = table.color || "brown";
+        tableDimensions = table.tableDimensions || { w: 300, h: 10 };
+        legDimensions = table.legDimensions || { w: 10, h: 50};
+
+        renderingContext.fillStyle = color;
+        renderingContext.fillRect(0, 0, 
+            tableDimensions.w, tableDimensions.h);
+        renderingContext.fillRect(0, tableDimensions.h, 
+            legDimensions.w, legDimensions.h);
+        renderingContext.fillRect(tableDimensions.w - legDimensions.w, 
+            tableDimensions.h, legDimensions.w, legDimensions.h);
+
+        renderingContext.restore();
+    };
+
     // Then, we have "easing functions" that determine how
     // intermediate frames are computed.
 
@@ -75,26 +122,25 @@
     var sprites = [
         {
             draw: SpriteLibrary.ball,
-            parameters: {
-                radius: 100,
-                startingAngle: 0,
-                endingAngle: Math.PI * 2,
-                counterclockwise: true,
-                color: "green"
-            },
             keyframes: [
                 {
                     frame: 0,
                     tx: 20,
                     ty: 20,
-                    ease: KeyframeTweener.linear
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
                 },
 
                 {
                     frame: 30,
                     tx: 100,
                     ty: 50,
-                    ease: KeyframeTweener.quadEaseOut
+                    ease: KeyframeTweener.quadEaseOut,
+                    parameters: {
+                        
+                    }
                 },
 
                 // The last keyframe does not need an easing function.
@@ -102,16 +148,16 @@
                     frame: 80,
                     tx: 80,
                     ty: 500,
-                    rotate: 60 // Keyframe.rotate uses degrees.
+                    rotate: 60, // Keyframe.rotate uses degrees.
+                    parameters: {
+
+                    }
                 }
             ]
         },
 
         {
             draw: SpriteLibrary.box,
-            parameters: {
-
-            },
             keyframes: [
                 {
                     frame: 50,
@@ -119,24 +165,85 @@
                     ty: 600,
                     sx: 1,
                     sy: 1,
-                    ease: KeyframeTweener.cubicEaseOut
+                    ease: KeyframeTweener.cubicEaseOut,
+                    parameters: {
+                        boxDimensions: { w: 200, h: 150 },
+                        lidHeight: 20,
+                        lidAngle: -90*Math.PI/180,
+                        color: "orange"
+                    }
                 },
 
                 {
                     frame: 100,
                     tx: 300,
-                    ty: 0,
+                    ty: 200,
                     sx: 1,
                     sy: 1,
-                    ease: KeyframeTweener.quadEaseIn
+                    ease: KeyframeTweener.quadEaseIn,
+                    parameters: {
+                        boxDimensions: { w: 200, h: 150 },
+                        lidHeight: 20,
+                        lidAngle: -10*Math.PI/180,
+                        color: "orange"
+                    }
                 },
 
                 {
-                    frame: 150,
+                    frame: 300,
                     tx: 300,
-                    ty: 600,
+                    ty: 400,
                     sx: 0.5,
-                    sy: 0.5
+                    sy: 0.5,
+                    parameters: {
+                        boxDimensions: { w: 200, h: 150 },
+                        lidHeight: 20,
+                        lidAngle: -10*Math.PI/180,
+                        color: "orange"
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.pacman,
+            keyframes: [
+                {
+                    frame: 70,
+                    tx: 100,
+                    ty: 400,
+                    sx: 1,
+                    sy: 1,
+                    ease: KeyframeTweener.cubicEaseOut,
+                    parameters: {
+                        startingAngle: Math.PI * 1.75,
+                        endingAngle: Math.PI * 0.25
+                    }
+                },
+
+                {
+                    frame: 130,
+                    tx: 800,
+                    ty: 500,
+                    sx: 1,
+                    sy: 1,
+                    ease: KeyframeTweener.quadEaseIn,
+                    parameters: {
+                        startingAngle: Math.PI * 1.95,
+                        endingAngle: Math.PI * 0.05
+                    }
+                },
+
+                {
+                    frame: 190,
+                    tx: 100,
+                    ty: 400,
+                    sx: 0.5,
+                    sy: 0.5,
+                    parameters: {
+                        startingAngle: Math.PI * 1.95,
+                        endingAngle: Math.PI * 0.05
+                    }
                 }
             ]
         }

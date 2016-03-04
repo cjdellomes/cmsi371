@@ -108,8 +108,24 @@
                             ease(currentTweenFrame, syStart, syDistance, duration)
                         );
 
+                        //For every sprite key frame
+                        //Iterate through the properties, tween the numeric values
+                        //Then, input the object of tweened values into the draw function
+                        var startParameterArray = Object.keys(startKeyframe.parameters);
+                        var endParameterArray = Object.keys(endKeyframe.parameters);
+                        var resultObject = {};
+
+                        for (var k = 0, maxK = startParameterArray.length; k < maxK; k++) {
+                            var propertyStart = startKeyframe.parameters.startParameterArray[k];
+                            var propertyEnd = endKeyfram.parameters.endParameterArray[k];
+                            if (typeof propertyStart === typeof propertyEnd && typeof propertyStart === typeof 0) {
+                                var propertyDistance = propertyEnd - propertyStart;
+                                resultObject.startParameterArray[k] = ease(currentTweenFrame, propertyStart, propertyDistance, duration);   
+                            }
+                        }
+
                         // Draw the sprite.
-                        sprites[i].draw(sprites[i].parameters);
+                        sprites[i].draw(resultObject);
 
                         // Clean up.
                         renderingContext.restore();
