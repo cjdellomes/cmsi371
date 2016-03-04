@@ -109,7 +109,7 @@
                         );
 
                         // Draw the sprite.
-                        sprites[i].draw(renderingContext);
+                        sprites[i].draw(sprites[i].parameters);
 
                         // Clean up.
                         renderingContext.restore();

@@ -3,7 +3,7 @@
     window.SpriteLibrary =  window.SpriteLibrary || {};
     SpriteLibrary.ball = function (ball) {
 
-        renderingContext = ball.renderingContext;
+        renderingContext = ball.renderingContext || document.getElementById("canvas").getContext("2d");
 
         renderingContext.save();
 

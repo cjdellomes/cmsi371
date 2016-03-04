@@ -20,6 +20,53 @@
         renderingContext.stroke();
     };
 
+    window.SpriteLibrary =  window.SpriteLibrary || {};
+    SpriteLibrary.ball = function (ball) {
+
+        renderingContext = ball.renderingContext || document.getElementById("canvas").getContext("2d");
+
+        renderingContext.save();
+
+        color = ball.color || "blue";
+        radius = ball.radius || 100;
+        startingAngle = ball.startingAngle || 0;
+        endingAngle = ball.endingAngle || Math.PI * 2;
+        counterClockwise = ball.counterClockwise || false;
+
+        renderingContext.fillStyle = color;
+        renderingContext.beginPath();
+        renderingContext.arc(0, 0, radius,
+            startingAngle, endingAngle, counterClockwise);
+        renderingContext.closePath();
+        renderingContext.fill();
+
+        renderingContext.restore();
+    };
+
+    window.SpriteLibrary = window.SpriteLibrary || {};
+    SpriteLibrary.box = function (box) {
+
+        renderingContext = box.renderingContext || document.getElementById("canvas").getContext("2d");
+
+        renderingContext.save();
+
+        color = box.color || "blue";
+        boxDimensions = box.boxDimensions || { w: 200, h: 150 };
+        lidHeight = box.lidHeight || 15;
+        lidAngle = box.lidAngle || -30 * Math.PI / 180;
+
+        renderingContext.fillStyle = color;
+        renderingContext.fillRect(0, 0,
+            boxDimensions.w, boxDimensions.h);
+        renderingContext.translate(0, 0);
+        renderingContext.rotate(lidAngle);
+        renderingContext.translate(0, 0)
+        renderingContext.fillRect(0, -(boxDimensions.h * .11), 
+            boxDimensions.w, lidHeight);
+
+        renderingContext.restore();
+    };
+
     // Then, we have "easing functions" that determine how
     // intermediate frames are computed.
 
@@ -27,7 +74,14 @@
     // has a drawing function and an array of keyframes.
     var sprites = [
         {
-            draw: square,
+            draw: SpriteLibrary.ball,
+            parameters: {
+                radius: 100,
+                startingAngle: 0,
+                endingAngle: Math.PI * 2,
+                counterclockwise: true,
+                color: "green"
+            },
             keyframes: [
                 {
                     frame: 0,
@@ -54,7 +108,10 @@
         },
 
         {
-            draw: circle,
+            draw: SpriteLibrary.box,
+            parameters: {
+
+            },
             keyframes: [
                 {
                     frame: 50,

@@ -3,7 +3,7 @@
     window.SpriteLibrary = window.SpriteLibrary || {};
     SpriteLibrary.pacman = function (pacman) {
 
-        renderingContext = pacman.renderingContext;
+        renderingContext = pacman.renderingContext || document.getElementById("canvas").getContext("2d");
 
         renderingContext.save();
 

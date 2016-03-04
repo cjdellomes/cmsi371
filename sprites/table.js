@@ -3,7 +3,7 @@
     window.SpriteLibrary = window.SpriteLibrary || {};
     SpriteLibrary.table = function (table) {
 
-        renderingContext = table.renderingContext;
+        renderingContext = table.renderingContext || document.getElementById("canvas").getContext("2d");
 
         renderingContext.save();
 
