@@ -33,7 +33,7 @@
                     frame: 0,
                     tx: 0,
                     ty: 200,
-                    ease: KeyframeTweener.cubicEaseIn,
+                    ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
                     }
@@ -43,7 +43,7 @@
                     frame: 30,
                     tx: 100,
                     ty: 600,
-                    ease: KeyframeTweener.cubicEaseOut,
+                    ease: KeyframeTweener.quadEaseOut,
                     parameters: {
                         radius: 35
                     }
@@ -54,7 +54,7 @@
                     frame: 60,
                     tx: 200,
                     ty: 200,
-                    ease: KeyframeTweener.cubicEaseIn,
+                    ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
                     }
@@ -64,7 +64,7 @@
                     frame: 90,
                     tx: 300,
                     ty: 600,
-                    ease: KeyframeTweener.cubicEaseOut,
+                    ease: KeyframeTweener.quadEaseOut,
                     parameters: {
                         radius: 35
                     }
@@ -74,7 +74,7 @@
                     frame: 120,
                     tx: 400,
                     ty: 200,
-                    ease: KeyframeTweener.cubicEaseIn,
+                    ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
                     }
@@ -83,6 +83,26 @@
                 {
                     frame: 150,
                     tx: 500,
+                    ty: 600,
+                    ease: KeyframeTweener.quadEaseOut,
+                    parameters: {
+                        radius: 35
+                    }
+                },
+
+                {
+                    frame: 180,
+                    tx: 600,
+                    ty: 200,
+                    ease: KeyframeTweener.quadEaseIn,
+                    parameters: {
+                        radius: 35
+                    }
+                },
+
+                {
+                    frame: 210,
+                    tx: 700,
                     ty: 600,
                     parameters: {
                         radius: 35
@@ -95,12 +115,9 @@
             draw: SpriteLibrary.box,
             keyframes: [
                 {
-                    frame: 50,
-                    tx: 300,
-                    ty: 600,
-                    sx: 1,
-                    sy: 1,
-                    ease: KeyframeTweener.cubicEaseOut,
+                    frame: 0,
+                    tx: 610,
+                    ty: 500,
                     parameters: {
                         boxDimensions: { w: 200, h: 150 },
                         lidHeight: 20,
@@ -110,28 +127,34 @@
                 },
 
                 {
-                    frame: 100,
-                    tx: 300,
-                    ty: 200,
-                    sx: 1,
-                    sy: 1,
-                    ease: KeyframeTweener.quadEaseIn,
+                    frame: 230,
+                    tx: 610,
+                    ty: 500,
                     parameters: {
-                        lidAngle: -40*Math.PI/180,
+                        lidAngle: -90*Math.PI/180,
                         lidHeight: 20,
                         color: "orange"
                     }
                 },
 
                 {
-                    frame: 300,
-                    tx: 300,
-                    ty: 400,
-                    sx: 0.5,
-                    sy: 0.5,
+                    frame: 250,
+                    tx: 610,
+                    ty: 500,
                     parameters: {
                         lidHeight: 20,
-                        lidAngle: -10*Math.PI/180,
+                        lidAngle: -1*Math.PI/180,
+                        color: "orange"
+                    }
+                },
+
+                {
+                    frame: 300,
+                    tx: 610,
+                    ty: 500,
+                    parameters: {
+                        lidHeight: 20,
+                        lidAngle: -1*Math.PI/180,
                         color: "orange"
                     }
                 }
@@ -142,7 +165,7 @@
             draw: SpriteLibrary.pacman,
             keyframes: [
                 {
-                    frame: 90,
+                    frame: 130,
                     tx: 0,
                     ty: 400,
                     sx: 1,
@@ -154,7 +177,7 @@
                 },
 
                 {
-                    frame: 100,
+                    frame: 140,
                     tx: 30,
                     ty: 400,
                     sx: 1,
@@ -166,8 +189,8 @@
                 },
 
                 {
-                    frame: 110,
-                    tx: 30,
+                    frame: 150,
+                    tx: 60,
                     ty: 400,
                     sx: 1,
                     sy: 1,
@@ -178,8 +201,8 @@
                 },
 
                 {
-                    frame: 120,
-                    tx: 40,
+                    frame: 160,
+                    tx: 90,
                     ty: 400,
                     sx: 1,
                     sy: 1,

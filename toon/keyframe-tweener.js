@@ -50,7 +50,7 @@
             }
 
             // Bail-out #2: Too soon.
-            if (timestamp - previousTimestamp < (1000 / (settings.frameRate || 24))) {
+            if (timestamp - previousTimestamp < (1000 / (settings.frameRate || 60))) {
                 window.requestAnimationFrame(nextFrame);
                 return;
             }
