@@ -113,6 +113,7 @@
                         //Then, input the object of tweened values into the draw function
                         var startParameterArray = Object.keys(startKeyframe.parameters);
                         var endParameterArray = Object.keys(endKeyframe.parameters);
+                        var propertyEase = startKeyframe.parameters.ease || KeyframeTweener.linear;
                         var resultObject = {};
 
                         for (var k = 0, maxK = startParameterArray.length; k < maxK; k++) {
@@ -121,7 +122,7 @@
                             var propertyEnd = endKeyframe.parameters[key];
                             if (typeof propertyStart === typeof propertyEnd && typeof propertyStart === typeof 0) {
                                 var propertyDistance = propertyEnd - propertyStart;
-                                resultObject[key] = ease(currentTweenFrame, propertyStart, propertyDistance, duration);   
+                                resultObject[key] = propertyEase(currentTweenFrame, propertyStart, propertyDistance, duration);   
                             } else {
                                 resultObject[key] = propertyStart;
                             }
