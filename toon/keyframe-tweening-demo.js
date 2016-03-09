@@ -32,7 +32,7 @@
                 {
                     frame: 0,
                     tx: 0,
-                    ty: 50,
+                    ty: 40,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
@@ -53,7 +53,7 @@
                 {
                     frame: 60,
                     tx: 200,
-                    ty: 50,
+                    ty: 40,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
@@ -73,7 +73,7 @@
                 {
                     frame: 120,
                     tx: 400,
-                    ty: 50,
+                    ty: 40,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
@@ -93,7 +93,7 @@
                 {
                     frame: 180,
                     tx: 600,
-                    ty: 60,
+                    ty: 40,
                     ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         radius: 35
@@ -131,8 +131,8 @@
                     tx: 610,
                     ty: 350,
                     parameters: {
-                        lidAngle: -90*Math.PI/180,
                         lidHeight: 20,
+                        lidAngle: -90*Math.PI/180,
                         color: "orange"
                     }
                 },
@@ -302,6 +302,36 @@
                         startingAngle: Math.PI * 1.99,
                         endingAngle: Math.PI  * 0.01
                     }
+                },
+
+                {
+                    frame: 250,
+                    tx: 330,
+                    ty: 300,
+                    parameters: {
+                        startingAngle: Math.PI * 1.5,
+                        endingAngle: Math.PI * 0.5
+                    }
+                },
+
+                {
+                    frame: 260,
+                    tx: 330,
+                    ty: 300,
+                    parameters: {
+                        startingAngle: Math.PI * 1.99,
+                        endingAngle: Math.PI  * 0.01
+                    }
+                },
+
+                {
+                    frame: 270,
+                    tx: 330,
+                    ty: 300,
+                    parameters: {
+                        startingAngle: Math.PI * 1.5,
+                        endingAngle: Math.PI * 0.5
+                    }
                 }
 
             ]
@@ -314,7 +344,7 @@
                     frame: 0,
                     tx: 610,
                     ty: 500,
-                    ease: KeyframeTweener.linear,
+                    ease: KeyframeTweener.quadEaseIn,
                     parameters: {
                         tableDimensions: { w: 300, h: 10 },
                         legDimensions: { w: 10, h: 50 },
@@ -327,17 +357,6 @@
                     tx: 610,
                     ty: 500,
                     ease: KeyframeTweener.quadEaseIn,
-                    parameters: {
-                        tableDimensions: { w: 300, h: 10 },
-                        legDimensions: { w: 10, h: 50 },
-                        color: "green"
-                    }
-                },
-
-                {
-                    frame: 330,
-                    tx: 610,
-                    ty: 500,
                     parameters: {
                         tableDimensions: { w: 300, h: 10 },
                         legDimensions: { w: 10, h: 50 },
