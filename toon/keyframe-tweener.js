@@ -112,7 +112,6 @@
                         //Iterate through the properties, tween the numeric values
                         //Then, input the object of tweened values into the draw function
                         var startParameterArray = Object.keys(startKeyframe.parameters);
-                        var endParameterArray = Object.keys(endKeyframe.parameters);
                         var propertyEase = startKeyframe.parameters.ease || KeyframeTweener.linear;
                         var resultObject = {};
 

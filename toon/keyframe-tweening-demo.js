@@ -20,6 +20,32 @@
         renderingContext.stroke();
     };
 
+    var ballKeyframes = function() { 
+        console.log("ballKeyframes called");
+        arr = [];
+        for (var i = 0; i <= 7; i++) {
+            var y;
+            var tween;
+            if (i % 2 == 0) {
+                y = 40;
+                tween = KeyframeTweener.quadEaseIn;
+            } else {
+                y = 450;
+                tween = KeyframeTweener.quadEaseOut;
+            }
+            arr.push({
+                frame: i * 30,
+                tx: i * 100,
+                ty: y,
+                ease: tween,
+                parameters: {
+                    radius: 35
+                }
+            });
+        }
+        return arr;
+    }
+
     // Then, we have "easing functions" that determine how
     // intermediate frames are computed.
 
@@ -28,87 +54,7 @@
     var sprites = [
         {
             draw: SpriteLibrary.ball,
-            keyframes: [
-                {
-                    frame: 0,
-                    tx: 0,
-                    ty: 40,
-                    ease: KeyframeTweener.quadEaseIn,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 30,
-                    tx: 100,
-                    ty: 450,
-                    ease: KeyframeTweener.quadEaseOut,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                // The last keyframe does not need an easing function.
-                {
-                    frame: 60,
-                    tx: 200,
-                    ty: 40,
-                    ease: KeyframeTweener.quadEaseIn,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 90,
-                    tx: 300,
-                    ty: 450,
-                    ease: KeyframeTweener.quadEaseOut,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 120,
-                    tx: 400,
-                    ty: 40,
-                    ease: KeyframeTweener.quadEaseIn,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 150,
-                    tx: 500,
-                    ty: 450,
-                    ease: KeyframeTweener.quadEaseOut,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 180,
-                    tx: 600,
-                    ty: 40,
-                    ease: KeyframeTweener.quadEaseIn,
-                    parameters: {
-                        radius: 35
-                    }
-                },
-
-                {
-                    frame: 210,
-                    tx: 700,
-                    ty: 450,
-                    parameters: {
-                        radius: 35
-                    }
-                }
-            ]
+            keyframes: ballKeyframes(),
         },
 
         {
