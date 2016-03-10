@@ -20,29 +20,157 @@
         renderingContext.stroke();
     };
 
+    /*
+    * Pacman and the ball require repetetive keyframes
+    * Decided to create the keyframes using loops
+    * Makes for more compact code
+    */
+
     var ballKeyframes = function() { 
-        console.log("ballKeyframes called");
         arr = [];
+
+        // Ball bouncing keyframes
         for (var i = 0; i <= 7; i++) {
-            var y;
-            var tween;
+            var ty;
+            var ease;
             if (i % 2 == 0) {
-                y = 40;
-                tween = KeyframeTweener.quadEaseIn;
+                ty = 40;
+                ease = KeyframeTweener.cubicEaseIn;
             } else {
-                y = 450;
-                tween = KeyframeTweener.quadEaseOut;
+                ty = 450;
+                ease = KeyframeTweener.cubicEaseOut;
             }
             arr.push({
                 frame: i * 30,
                 tx: i * 100,
-                ty: y,
-                ease: tween,
+                ty: ty,
+                ease: ease,
                 parameters: {
                     radius: 35
                 }
             });
         }
+
+        return arr;
+    }
+
+    var pacmanKeyframes = function () {
+        arr = [];
+        var startingAngle;
+        var endingAngle;
+
+        // Pacman chasing ball keyframes
+        for (var i = 0; i <= 11; i++) {
+            var frame = 110;
+            if (i % 2 == 0) {
+                startingAngle = Math.PI * 1.5;
+                endingAngle = Math.PI * 0.5;
+            } else {
+                startingAngle = Math.PI * 1.99;
+                endingAngle = Math.PI * 0.01;
+            }
+            arr.push({
+                frame: frame + (10 * i),
+                tx: i * 30,
+                ty: 300,
+                parameters: {
+                    startingAngle: startingAngle,
+                    endingAngle: endingAngle
+                }
+            });
+        }
+
+        // Pacman stalling outside box keyframes
+        for (var i = 0; i <= 7; i++) {
+            var frame = 220;
+            var ease = KeyframeTweener.linear;
+            if (i % 2 == 0) {
+                startingAngle = Math.PI * 1.99;
+                endingAngle = Math.PI * 0.01;
+            } else {
+                startingAngle = Math.PI * 1.5;
+                endingAngle = Math.PI * 0.5;
+            }
+            if (i == 7) {
+                ease = KeyframeTweener.cubicEaseOut;
+            }
+            arr.push({
+                frame: frame + (10 * i),
+                tx: 330,
+                ty: 300,
+                ease: ease,
+                parameters: {
+                    startingAngle: startingAngle,
+                    endingAngle: endingAngle
+                }
+            });
+        }
+
+        // Pacman eating stuff keyframes
+        for (var i = 0; i <= 2; i++) {
+            var scale;
+            var tx;
+            var ty;
+            var ease;
+            var frame = 380;
+            if (i < 2) {
+                tx = 600;
+                ty = 500;
+                scale = 2;
+            } else {
+                tx = 330;
+                ty = 300;
+                scale = 0.5
+            }
+            if (i == 1) {
+                frame += 50;
+                ease = KeyframeTweener.cubicEaseIn;
+            } else if (i == 2) {
+                frame += 150;
+                ease = KeyframeTweener.cubicEaseOut;
+            }
+            arr.push({
+                frame: frame,
+                tx: tx,
+                ty: ty,
+                sx: scale,
+                sy: scale,
+                ease: ease,
+                parameters: {
+                    startingAngle: Math.PI * 2,
+                    endingAngle: Math.PI * 0.00001
+                }
+            })
+        }
+
+        // Pacman leaving keyframes
+        var scale = 0.5;
+        for (var i = 0; i <= 12; i++) {
+            var frame = 580;
+            if (i % 2 == 0) {
+                startingAngle = Math.PI * 1.5;
+                endingAngle = Math.PI * 0.5;
+            } else {
+                startingAngle = Math.PI * 1.99;
+                endingAngle = Math.PI * 0.01;
+            }
+            if (i > 1 && i < 6) {
+                scale -= 0.1;
+            }
+            arr.push({
+                frame: 580 + (10 * i),
+                tx: 330 - (30 * i),
+                ty: 300,
+                sx: scale,
+                sy: scale,
+                rotate: 180,
+                parameters: {
+                    startingAngle: startingAngle,
+                    endingAngle: endingAngle
+                }
+            });
+        }
+
         return arr;
     }
 
@@ -95,23 +223,12 @@
                 },
 
                 {
-                    frame: 300,
-                    tx: 610,
-                    ty: 350,
-                    parameters: {
-                        lidHeight: 20,
-                        lidAngle: -1*Math.PI/180,
-                        color: "orange"
-                    }
-                },
-
-                {
                     frame: 380,
                     tx: 610,
                     ty: 350,
                     parameters: {
                         lidHeight: 20,
-                        lidAngle: -1 * Math.PI/180,
+                        lidAngle: -1*Math.PI/180,
                         color: "orange"
                     }
                 }
@@ -147,370 +264,7 @@
 
         {
             draw: SpriteLibrary.pacman,
-            keyframes: [
-                {
-                    frame: 110,
-                    tx: 0,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 120,
-                    tx: 30,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 130,
-                    tx: 60,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 140,
-                    tx: 90,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 150,
-                    tx: 120,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 160,
-                    tx: 150,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 170,
-                    tx: 180,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 180,
-                    tx: 210,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 190,
-                    tx: 240,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 200,
-                    tx: 270,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 210,
-                    tx: 300,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 220,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI  * 0.01
-                    }
-                },
-
-                {
-                    frame: 230,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 240,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI  * 0.01
-                    }
-                },
-
-                {
-                    frame: 250,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 260,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI  * 0.01
-                    }
-                },
-
-                {
-                    frame: 270,
-                    tx: 330,
-                    ty: 300,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 380,
-                    tx: 600,
-                    ty: 500,
-                    sx: 2,
-                    sy: 2,
-                    parameters: {
-                        startingAngle: Math.PI * 2,
-                        endingAngle: Math.PI * 0.00001
-                    }
-                },
-
-                {
-                    frame: 430,
-                    tx: 600,
-                    ty: 500,
-                    sx: 2,
-                    sy: 2,
-                    parameters: {
-                        startingAngle: Math.PI * 2,
-                        endingAngle: Math.PI * 0.00001
-                    }
-                },
-
-                {
-                    frame: 540,
-                    tx: 330,
-                    ty: 300,
-                    sx: 0.5,
-                    sy: 0.5,
-                    parameters: {
-                        startingAngle: Math.PI * 2,
-                        endingAngle: Math.PI * 0.00001
-                    }
-                },
-
-                {
-                    frame: 580,
-                    tx: 330,
-                    ty: 300,
-                    sx: 0.5,
-                    sy: 0.5,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 590,
-                    tx: 300,
-                    ty: 300,
-                    sx: 0.5,
-                    sy: 0.5,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 600,
-                    tx: 270,
-                    ty: 300,
-                    sx: 0.4,
-                    sy: 0.4,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 610,
-                    tx: 240,
-                    ty: 300,
-                    sx: 0.3,
-                    sy: 0.3,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 620,
-                    tx: 210,
-                    ty: 300,
-                    sx: 0.2,
-                    sy: 0.2,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 630,
-                    tx: 180,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 640,
-                    tx: 150,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 650,
-                    tx: 120,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 660,
-                    tx: 90,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 670,
-                    tx: 60,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                },
-
-                {
-                    frame: 680,
-                    tx: 30,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.5,
-                        endingAngle: Math.PI * 0.5
-                    }
-                },
-
-                {
-                    frame: 690,
-                    tx: 0,
-                    ty: 300,
-                    sx: 0.1,
-                    sy: 0.1,
-                    rotate: 180,
-                    parameters: {
-                        startingAngle: Math.PI * 1.99,
-                        endingAngle: Math.PI * 0.01
-                    }
-                }
-
-            ]
+            keyframes: pacmanKeyframes()
         }
     ];
 
