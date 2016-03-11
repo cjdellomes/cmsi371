@@ -15,6 +15,10 @@ var Nanoshop = {
         return [r * 1.5, g * 1.5, b * 1.5, a];
     },
 
+    bluer: function (x, y, r, g, b, a) {
+        return [r, g, b * 1.5, a];
+    },
+
     /*
      * Applies the given filter to the given ImageData object,
      * then modifies its pixels according to the given filter.

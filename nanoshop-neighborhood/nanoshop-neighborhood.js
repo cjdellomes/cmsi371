@@ -16,6 +16,24 @@ var NanoshopNeighborhood = {
         ];
     },
 
+    brightener: function (x, y, rgbaNeighborhood) {
+        return [
+            rgbaNeighborhood[4].r * 1.5,
+            rgbaNeighborhood[4].g * 1.5,
+            rgbaNeighborhood[4].b * 1.5,
+            rgbaNeighborhood[4].a
+        ];
+    },
+
+    yellower: function (x, y, rgbaNeighborhood) {
+        return [
+            rgbaNeighborhood[4].r * 1.5,
+            rgbaNeighborhood[4].g * 1.5,
+            rgbaNeighborhood[4].b,
+            rgbaNeighborhood[4].a
+        ];
+    },
+
     /*
      * A basic "averager"---this one returns the average of all the pixels in the
      * given neighborhood.
