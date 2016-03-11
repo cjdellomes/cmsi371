@@ -277,54 +277,53 @@ var Primitives = {
         var rightVDelta;
         var hDelta;
         var currentColor;
-        c1 = c1 || [0, 0, 0];
-        c2 = c2 || [0, 0, 0];
-        c3 = c3 || [0, 0, 0];
+        c1 = c1;
+        c2 = c2 || c1;
+        c3 = c3 || c2;
         c4 = c4 || c3;
         var leftColor = c1;
         var rightColor = c2;
 
         currentColor = [leftColor[0], leftColor[1], leftColor[2]];
-        hDelta = [(rightColor[0] - leftColor[0]),
-                          (rightColor[1] - leftColor[1]),
-                          (rightColor[2] - leftColor[2])];
+        hDelta = [(rightColor[0] - leftColor[0]) / xc,
+                          (rightColor[1] - leftColor[1]) / xc,
+                          (rightColor[2] - leftColor[2]) / xc]
 
-        leftVDelta = [(c3[0] - c1[0]),
-                      (c3[1] - c1[1]),
-                      (c3[2] - c1[2])];
-            rightVDelta = [(c4[0] - c2[0]),
-                      (c4[1] - c2[1]),
-                      (c4[2] - c2[2])];
+        leftVDelta = [(c3[0] - c1[0]) / yc,
+                      (c3[1] - c1[1]) / yc,
+                      (c3[2] - c1[2]) / yc];
+            rightVDelta = [(c4[0] - c2[0]) / yc,
+                      (c4[1] - c2[1]) / yc,
+                      (c4[2] - c2[2]) / yc];
 
         for (var i = 0; i < x; i++) {
-            this.setPixel(context, xc + i, yc + y, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + i, yc - y, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + y, yc + i, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + y, yc - i, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - i, yc + y, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - i, yc - y, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - y, yc + i, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - y, yc - i, c1[0], c1[1], c1[2]);
+            this.setPixel(context, xc + i, yc + y, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + i, yc - y, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + y, yc + i, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + y, yc - i, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - i, yc + y, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - i, yc - y, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - y, yc + i, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - y, yc - i, currentColor[0], currentColor[1], currentColor[2]);
             currentColor[0] += hDelta[0];
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
-            leftColor[0] += leftVDelta[0];
         }
 
         for (var j = 0; j < y; j++) {
-            this.setPixel(context, xc + x, yc + j, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + x, yc - j, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + j, yc + x, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc + j, yc - x, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - x, yc + j, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - x, yc - j, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - j, yc + x, c1[0], c1[1], c1[2]);
-            this.setPixel(context, xc - j, yc - x, c1[0], c1[1], c1[2]);
+            this.setPixel(context, xc + x, yc + j, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + x, yc - j, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + j, yc + x, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc + j, yc - x, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - x, yc + j, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - x, yc - j, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - j, yc + x, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - j, yc - x, currentColor[0], currentColor[1], currentColor[2]);
             currentColor[0] += hDelta[0];
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
-            leftColor[0] += leftVDelta[0];
         }
+        leftColor[0] += leftVDelta[0];
         leftColor[1] += leftVDelta[1];
         leftColor[2] += leftVDelta[2];
         rightColor[0] += rightVDelta[0];
