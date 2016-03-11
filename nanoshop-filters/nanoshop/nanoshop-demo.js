@@ -45,6 +45,20 @@
                 legDimensions: { w: 10, h: 50 },
                 color: "brown"
             }
+        },
+
+        {
+            draw: SpriteLibrary.ball,
+            tx: 430,
+            ty: 170,
+            parameters: {
+                renderingContext: renderingContext,
+                radius: 30,
+                startingAngle: 0,
+                endingAngle: Math.PI * 2,
+                counterclockwise: true,
+                color: "orange"
+            }
         }
     ];
 

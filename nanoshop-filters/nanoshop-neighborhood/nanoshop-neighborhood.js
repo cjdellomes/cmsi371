@@ -18,17 +18,17 @@ var NanoshopNeighborhood = {
 
     brightener: function (x, y, rgbaNeighborhood) {
         return [
-            rgbaNeighborhood[4].r * 1.5,
-            rgbaNeighborhood[4].g * 1.5,
-            rgbaNeighborhood[4].b * 1.5,
+            rgbaNeighborhood[4].r * 2,
+            rgbaNeighborhood[4].g * 2,
+            rgbaNeighborhood[4].b * 2,
             rgbaNeighborhood[4].a
         ];
     },
 
     yellower: function (x, y, rgbaNeighborhood) {
         return [
-            rgbaNeighborhood[4].r * 1.5,
-            rgbaNeighborhood[4].g * 1.5,
+            rgbaNeighborhood[4].r * 2,
+            rgbaNeighborhood[4].g * 2,
             rgbaNeighborhood[4].b,
             rgbaNeighborhood[4].a
         ];
@@ -40,6 +40,24 @@ var NanoshopNeighborhood = {
             rgbaNeighborhood[4].g * 1.1,
             rgbaNeighborhood[3].b * 0.8,
             rgbaNeighborhood[4].a
+        ];
+    },
+
+    shadow: function (x, y, rgbaNeighborhood) {
+        return [
+            rgbaNeighborhood[3].r * 3,
+            rgbaNeighborhood[3].g * 1.5,
+            rgbaNeighborhood[4].b * 1.1,
+            rgbaNeighborhood[4].a
+        ];
+    },
+
+    experiment: function (x, y, rgbaNeighborhood) {
+        return [
+            rgbaNeighborhood[2].r * 0.9,
+            rgbaNeighborhood[4].g * 1.3,
+            rgbaNeighborhood[2].b * 0.9,
+            rgbaNeighborhood[3].a
         ];
     },
 
