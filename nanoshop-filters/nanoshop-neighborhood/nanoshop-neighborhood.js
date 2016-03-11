@@ -52,15 +52,6 @@ var NanoshopNeighborhood = {
         ];
     },
 
-    experiment: function (x, y, rgbaNeighborhood) {
-        return [
-            rgbaNeighborhood[2].r * 0.9,
-            rgbaNeighborhood[4].g * 1.3,
-            rgbaNeighborhood[2].b * 0.9,
-            rgbaNeighborhood[3].a
-        ];
-    },
-
     /*
      * A basic "averager"---this one returns the average of all the pixels in the
      * given neighborhood.
