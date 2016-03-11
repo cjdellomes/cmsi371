@@ -6,85 +6,54 @@
     var canvas = $("#picture")[0];
     var renderingContext = canvas.getContext("2d");
 
-    // Scene created by Angela Elgar: https://github.com/aelgar
-    renderingContext.translate(400, 200);
-    Sprites.Wall.draw(renderingContext, { });
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(120, 220);
-    Sprites.Shelf.draw(renderingContext);
-    renderingContext.translate(220, 0);
-    Sprites.Shelf.draw(renderingContext);
-    renderingContext.resetTransform();
-    renderingContext.translate(510, 120);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
-    renderingContext.translate(110, 0);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "B" });
-    renderingContext.translate(110, 0);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
+    window.SpriteLibrary = window.SpriteLibrary || {};
 
-    renderingContext.resetTransform();
-    renderingContext.translate(80, 88);
-    renderingContext.scale(0.2, 0.2);
-    renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
-    renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"DarkSalmon" });
-    renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
-    
-    renderingContext.translate(-690, 0);
-    renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"SeaGreen" });
-    renderingContext.translate(250, 0);
-    Sprites.Cup.draw(renderingContext, { });
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(70, 158);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { color:"CadetBlue" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "Plum" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "CadetBlue" });
+    var sprites = [
+        {
+            draw: SpriteLibrary.pacman,
+            tx: 200,
+            ty: 200,
+            parameters: {
+                renderingContext: renderingContext,
+                radius: 100,
+                startingAngle: Math.PI * 1.75,
+                endingAngle: Math.PI * 0.25,
+                counterclockwise: true
+            }
+        },
 
-    renderingContext.resetTransform();
-    renderingContext.translate(290, 228);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
+        {
+            draw: SpriteLibrary.box,
+            tx: 300,
+            ty: 200,
+            parameters: {
+                renderingContext: renderingContext,
+                boxDimensions: { w: 200, h: 150 },
+                lidHeight: 15,
+                lidAngle: -30*Math.PI/180,
+                color: "green"
+            }
+        },
 
-    renderingContext.resetTransform();
-    renderingContext.translate(570, 360);
-    Sprites.Counter.draw(renderingContext);
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(540, 280);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.3 });
-    renderingContext.translate(300,0);
-    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.4, color: "SeaGreen" });
+        {
+            draw: SpriteLibrary.table,
+            tx: 300,
+            ty: 400,
+            parameters: {
+                renderingContext: renderingContext,
+                tableDimensions: { w: 300, h: 10 },
+                legDimensions: { w: 10, h: 50 },
+                color: "brown"
+            }
+        }
+    ];
 
-    renderingContext.setTransform(.5, 0, 0, .5, 60, 50);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
-    renderingContext.translate(300, -50);
-    renderingContext.scale(1.5, 1.2);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.5 });
-    renderingContext.translate(280, -20);
-    renderingContext.scale(0.5, 1);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
-    renderingContext.translate(500, 30);
-    renderingContext.scale(2.5, 0.7);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
-    renderingContext.translate(160, -80);
-    renderingContext.scale(0.5, 1);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
-    renderingContext.translate(-800, -600);
-    renderingContext.scale(5, 2.5);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
+    for (var i = 0; i < sprites.length; i++) {
+        renderingContext.save();
+        renderingContext.translate(sprites[i].tx, sprites[i].ty);
+        sprites[i].draw(sprites[i].parameters);
+        renderingContext.restore();
+    }
 
     // Set a little event handler to apply the filter.
     $("#apply-filter-button").click(function () {

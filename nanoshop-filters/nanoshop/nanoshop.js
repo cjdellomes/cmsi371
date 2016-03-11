@@ -7,20 +7,40 @@ var Nanoshop = {
      * A basic "darkener."
      */
     darkener: function (x, y, r, g, b, a) {
+        if (r == 0 || g == 0 || b == 0) {
+            r = 64;
+            g = 64;
+            b = 64;
+        }
         return [ r / 2, g / 2, b / 2, a ];
     },
 
     // A basic "brightener"
     brightener: function (x, y, r, g, b, a) {
-        return [r * 1.5, g * 1.5, b * 1.5, a];
+        if (r == 0 || g == 0 || b == 0) {
+            r = 64;
+            g = 64;
+            b = 64;
+        }
+        return [r * 2, g * 2, b * 2, a];
     },
 
     bluer: function (x, y, r, g, b, a) {
-        return [r, g, b * 1.5, a];
+        if (r == 0 || g == 0 || b == 0) {
+            r = 64;
+            g = 64;
+            b = 64;
+        }
+        return [r, g, b * 2, a];
     },
 
     purpler: function (x, y, r, g, b, a) {
-        return [r * 1.5, g, b* 1.5, a];
+        if (r == 0 || g == 0 || b == 0) {
+            r = 64;
+            g = 64;
+            b = 64;
+        }
+        return [r * 2, g, b * 2, a];
     },
 
     /*
