@@ -292,7 +292,7 @@ var Primitives = {
         leftVDelta = [(c3[0] - c1[0]) / y,
                       (c3[1] - c1[1]) / y,
                       (c3[2] - c1[2]) / y];
-            rightVDelta = [(c4[0] - c2[0]) / y,
+        rightVDelta = [(c4[0] - c2[0]) / y,
                       (c4[1] - c2[1]) / y,
                       (c4[2] - c2[2]) / y];
 
@@ -314,7 +314,7 @@ var Primitives = {
         leftVDelta = [(c3[0] - c1[0]) / y,
                       (c3[1] - c1[1]) / y,
                       (c3[2] - c1[2]) / y];
-            rightVDelta = [(c4[0] - c2[0]) / y,
+        rightVDelta = [(c4[0] - c2[0]) / y,
                       (c4[1] - c2[1]) / y,
                       (c4[2] - c2[2]) / y];
 
@@ -336,7 +336,7 @@ var Primitives = {
         leftVDelta = [(c3[0] - c1[0]) / x,
                       (c3[1] - c1[1]) / x,
                       (c3[2] - c1[2]) / x];
-            rightVDelta = [(c4[0] - c2[0]) / x,
+        rightVDelta = [(c4[0] - c2[0]) / x,
                       (c4[1] - c2[1]) / x,
                       (c4[2] - c2[2]) / x];
 
@@ -348,6 +348,12 @@ var Primitives = {
             currentColor[0] += hDelta[0];
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
+            leftColor[0] += leftVDelta[0];
+            leftColor[1] += leftVDelta[1];
+            leftColor[2] += leftVDelta[2];
+            rightColor[0] += rightVDelta[0];
+            rightColor[1] += rightVDelta[1];
+            rightColor[2] += rightVDelta[2];
         }
 
         currentColor = [leftColor[0], leftColor[1], leftColor[2]];
@@ -358,7 +364,7 @@ var Primitives = {
         leftVDelta = [(c3[0] - c1[0]) / x,
                       (c3[1] - c1[1]) / x,
                       (c3[2] - c1[2]) / x];
-            rightVDelta = [(c4[0] - c2[0]) / x,
+        rightVDelta = [(c4[0] - c2[0]) / x,
                       (c4[1] - c2[1]) / x,
                       (c4[2] - c2[2]) / x];
 
@@ -371,11 +377,11 @@ var Primitives = {
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
             leftColor[0] += leftVDelta[0];
-        leftColor[1] += leftVDelta[1];
-        leftColor[2] += leftVDelta[2];
-        rightColor[0] += rightVDelta[0];
-        rightColor[1] += rightVDelta[1];
-        rightColor[2] += rightVDelta[2];
+            leftColor[1] += leftVDelta[1];
+            leftColor[2] += leftVDelta[2];
+            rightColor[0] += rightVDelta[0];
+            rightColor[1] += rightVDelta[1];
+            rightColor[2] += rightVDelta[2];
         }
     },
 
