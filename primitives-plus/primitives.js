@@ -285,50 +285,98 @@ var Primitives = {
         var rightColor = c2;
 
         currentColor = [leftColor[0], leftColor[1], leftColor[2]];
-        hDelta = [(rightColor[0] - leftColor[0]) / xc,
-                          (rightColor[1] - leftColor[1]) / xc,
-                          (rightColor[2] - leftColor[2]) / xc]
+        hDelta = [(rightColor[0] - leftColor[0]) / x,
+                          (rightColor[1] - leftColor[1]) / x,
+                          (rightColor[2] - leftColor[2]) / x]
 
-        leftVDelta = [(c3[0] - c1[0]) / yc,
-                      (c3[1] - c1[1]) / yc,
-                      (c3[2] - c1[2]) / yc];
-            rightVDelta = [(c4[0] - c2[0]) / yc,
-                      (c4[1] - c2[1]) / yc,
-                      (c4[2] - c2[2]) / yc];
+        leftVDelta = [(c3[0] - c1[0]) / y,
+                      (c3[1] - c1[1]) / y,
+                      (c3[2] - c1[2]) / y];
+            rightVDelta = [(c4[0] - c2[0]) / y,
+                      (c4[1] - c2[1]) / y,
+                      (c4[2] - c2[2]) / y];
 
         for (var i = 0; i < x; i++) {
             this.setPixel(context, xc + i, yc + y, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc + i, yc - y, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc + y, yc + i, currentColor[0], currentColor[1], currentColor[2]);
+            this.setPixel(context, xc - y, yc + i, currentColor[0], currentColor[1], currentColor[2]);
+            currentColor[0] += hDelta[0];
+            currentColor[1] += hDelta[1];
+            currentColor[2] += hDelta[2];
+        }
+
+        currentColor = [leftColor[0], leftColor[1], leftColor[2]];
+        hDelta = [(rightColor[0] - leftColor[0]) / x,
+                          (rightColor[1] - leftColor[1]) / x,
+                          (rightColor[2] - leftColor[2]) / x]
+
+        leftVDelta = [(c3[0] - c1[0]) / y,
+                      (c3[1] - c1[1]) / y,
+                      (c3[2] - c1[2]) / y];
+            rightVDelta = [(c4[0] - c2[0]) / y,
+                      (c4[1] - c2[1]) / y,
+                      (c4[2] - c2[2]) / y];
+
+        for (var  i = 0; i < x; i++) {
             this.setPixel(context, xc + y, yc - i, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - i, yc + y, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - i, yc - y, currentColor[0], currentColor[1], currentColor[2]);
-            this.setPixel(context, xc - y, yc + i, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - y, yc - i, currentColor[0], currentColor[1], currentColor[2]);
             currentColor[0] += hDelta[0];
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
         }
 
+        currentColor = [leftColor[0], leftColor[1], leftColor[2]];
+        hDelta = [(rightColor[0] - leftColor[0]) / y,
+                          (rightColor[1] - leftColor[1]) / y,
+                          (rightColor[2] - leftColor[2]) / y]
+
+        leftVDelta = [(c3[0] - c1[0]) / x,
+                      (c3[1] - c1[1]) / x,
+                      (c3[2] - c1[2]) / x];
+            rightVDelta = [(c4[0] - c2[0]) / x,
+                      (c4[1] - c2[1]) / x,
+                      (c4[2] - c2[2]) / x];
+
         for (var j = 0; j < y; j++) {
             this.setPixel(context, xc + x, yc + j, currentColor[0], currentColor[1], currentColor[2]);
-            this.setPixel(context, xc + x, yc - j, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc + j, yc + x, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc + j, yc - x, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - x, yc + j, currentColor[0], currentColor[1], currentColor[2]);
+            currentColor[0] += hDelta[0];
+            currentColor[1] += hDelta[1];
+            currentColor[2] += hDelta[2];
+        }
+
+        currentColor = [leftColor[0], leftColor[1], leftColor[2]];
+        hDelta = [(rightColor[0] - leftColor[0]) / y,
+                          (rightColor[1] - leftColor[1]) / y,
+                          (rightColor[2] - leftColor[2]) / y]
+
+        leftVDelta = [(c3[0] - c1[0]) / x,
+                      (c3[1] - c1[1]) / x,
+                      (c3[2] - c1[2]) / x];
+            rightVDelta = [(c4[0] - c2[0]) / x,
+                      (c4[1] - c2[1]) / x,
+                      (c4[2] - c2[2]) / x];
+
+        for (var j = 0; j < y; j++) {
+            this.setPixel(context, xc + x, yc - j, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - x, yc - j, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - j, yc + x, currentColor[0], currentColor[1], currentColor[2]);
             this.setPixel(context, xc - j, yc - x, currentColor[0], currentColor[1], currentColor[2]);
             currentColor[0] += hDelta[0];
             currentColor[1] += hDelta[1];
             currentColor[2] += hDelta[2];
-        }
-        leftColor[0] += leftVDelta[0];
+            leftColor[0] += leftVDelta[0];
         leftColor[1] += leftVDelta[1];
         leftColor[2] += leftVDelta[2];
         rightColor[0] += rightVDelta[0];
         rightColor[1] += rightVDelta[1];
         rightColor[2] += rightVDelta[2];
+        }
     },
 
     // First, the most naive possible implementation: circle by trigonometry.
