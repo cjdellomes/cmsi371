@@ -126,7 +126,7 @@
             NanoshopNeighborhood.applyFilter(
                 renderingContext,
                 renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-                NanoshopNeighborhood.yellower
+                NanoshopNeighborhood.orangeToYellow
                 //NanoshopNeighborhood.averager // Convenience comment for easy switching.
             ),
             0, 0

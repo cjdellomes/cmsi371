@@ -19,6 +19,10 @@ var Nanoshop = {
         return [r, g, b * 1.5, a];
     },
 
+    purpler: function (x, y, r, g, b, a) {
+        return [r * 1.5, g, b* 1.5, a];
+    },
+
     /*
      * Applies the given filter to the given ImageData object,
      * then modifies its pixels according to the given filter.
