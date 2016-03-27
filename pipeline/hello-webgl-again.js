@@ -124,11 +124,7 @@
             mode: gl.LINE_LOOP
         },
 
-        {
-            color: { r: 0.0, g: 0.5, b: 0.0 },
-            vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
-            mode: gl.LINES
-        }
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
@@ -140,6 +136,7 @@
             // If we have a single color, we expand that into an array
             // of the same color over and over.
             objectsToDraw[i].colors = [];
+            console.log(objectsToDraw[i]);
             for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3;
                     j < maxj; j += 1) {
                 objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
