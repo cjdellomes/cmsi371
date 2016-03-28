@@ -79,52 +79,41 @@
 
     // Build the objects to display.
     var objectsToDraw = [
-        {
-            vertices: [].concat(
-                [ 0.0, 0.0, 0.0 ],
-                [ 0.5, 0.0, -0.75 ],
-                [ 0.0, 0.5, 0.0 ]
-            ),
-            colors: [].concat(
+        new Shape( [].concat(
                 [ 1.0, 0.0, 0.0 ],
                 [ 0.0, 1.0, 0.0 ],
                 [ 0.0, 0.0, 1.0 ]
-            ),
-            mode: gl.TRIANGLES
-        },
+            ), [].concat(
+                [ 0.0, 0.0, 0.0 ],
+                [ 0.5, 0.0, -0.75 ],
+                [ 0.0, 0.5, 0.0 ]
+            ), gl.TRIANGLES
+        ),
 
-        {
-            color: { r: 0.0, g: 1.0, b: 0 },
-            vertices: [].concat(
+        new Shape({ r: 0.0, g: 1.0, b: 0 }, [].concat(
                 [ 0.25, 0.0, -0.5 ],
                 [ 0.75, 0.0, -0.5 ],
                 [ 0.25, 0.5, -0.5 ]
-            ),
-            mode: gl.TRIANGLES
-        },
+            ), gl.TRIANGLES
+        ),
 
-        {
-            color: { r: 0.0, g: 0.0, b: 1.0 },
-            vertices: [].concat(
+        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, [].concat(
                 [ -0.25, 0.0, 0.5 ],
                 [ 0.5, 0.0, 0.5 ],
                 [ -0.25, 0.5, 0.5 ]
-            ),
-            mode: gl.TRIANGLES
-        },
+            ), gl.TRIANGLES
+        ),
 
-        {
-            color: { r: 0.0, g: 0.0, b: 1.0 },
-            vertices: [].concat(
+        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, [].concat(
                 [ -1.0, -1.0, 0.75 ],
                 [ -1.0, -0.1, -1.0 ],
                 [ -0.1, -0.1, -1.0 ],
                 [ -0.1, -1.0, 0.75 ]
-            ),
-            mode: gl.LINE_LOOP
-        },
+            ), gl.LINE_LOOP),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
+
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 10, 10)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
