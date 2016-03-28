@@ -12,7 +12,7 @@ var Shapes = {
 
         // Create sphere vertices
         for (var latNum = 0; latNum < latBands + 1; latNum++) {
-            var theta = (latNum * Math.PI) / longBands;
+            var theta = (latNum * Math.PI) / latBands;
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
 
@@ -25,9 +25,7 @@ var Shapes = {
                 var y = cosTheta;
                 var z = sinPhi * sinTheta;
 
-                vertices.push(radius * x);
-                vertices.push(radius * y);
-                vertices.push(radius * z);
+                vertices.push([x, y, z]);
             }
         }
 
