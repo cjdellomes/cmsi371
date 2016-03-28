@@ -11,12 +11,12 @@ var Shapes = {
         var data = {};
 
         // Create sphere vertices
-        for (var latNum = 0; latNum < latBands; latNum++) {
+        for (var latNum = 0; latNum < latBands + 1; latNum++) {
             var theta = (latNum * Math.PI) / longBands;
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
 
-            for (var longNum = 0; longNum < longBands; longNum++) {
+            for (var longNum = 0; longNum < longBands + 1; longNum++) {
                 var phi = (longNum * 2 * Math.PI) / longBands;
                 var sinPhi = Math.sin(phi);
                 var cosPhi = Math.cos(phi);
@@ -32,18 +32,13 @@ var Shapes = {
         }
 
         // Create sphere indices
-        for (var latNum = 0; latNum < latBands; latNum++) {
-            for (var longNum = 0; longNum < longBands; longNum++) {
+        for (var latNum = 0; latNum < latBands + 1; latNum++) {
+            for (var longNum = 0; longNum < longBands + 1; longNum++) {
                 var top = (latNum * (longBands + 1)) + longNum;
                 var bottom = top + longBands + 1;
 
-                indices.push(top);
-                indices.push(bottom);
-                indices.push(top + 1);
-
-                indices.push(bottom);
-                indices.push(bottom + 1);
-                indices.push(top + 1);
+                indices.push([top, bottom, top + 1]);
+                indices.push([bottom, bottom + 1, top + 1]);
             }
         }
         data.vertices = vertices;
@@ -126,9 +121,8 @@ var Shapes = {
      */
     toRawLineArray: function (indexedVertices) {
         var result = [];
-
-        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i++) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j++) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
