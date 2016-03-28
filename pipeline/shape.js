@@ -1,10 +1,13 @@
 var Shape = (function (color, vertices, mode) {
-    
-    // Define the constructor
-    this.color = color;
+
+    this.colors = color;
     this.vertices = vertices;
     this.mode = mode;
 
+    /*
+     * Utility function for turning indexed vertices into a "raw" coordinate array
+     * arranged as triangles.
+     */
     Shape.prototype.toRawTriangleArray = function (indexedVertices) {
         var result = [];
 
@@ -21,6 +24,10 @@ var Shape = (function (color, vertices, mode) {
         return result;
     }
 
+    /*
+     * Utility function for turning indexed vertices into a "raw" coordinate array
+     * arranged as line segments.
+     */
     Shape.prototype.toRawLineArray = function (indexedVertices) {
         var result = [];
 

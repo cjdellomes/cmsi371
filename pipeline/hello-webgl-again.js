@@ -90,30 +90,33 @@
             ), gl.TRIANGLES
         ),
 
-        new Shape({ r: 0.0, g: 1.0, b: 0 }, [].concat(
+        new Shape({ r: 0.0, g: 1.0, b: 0 }, 
+            [].concat(
                 [ 0.25, 0.0, -0.5 ],
                 [ 0.75, 0.0, -0.5 ],
                 [ 0.25, 0.5, -0.5 ]
             ), gl.TRIANGLES
         ),
 
-        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, [].concat(
+        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, 
+            [].concat(
                 [ -0.25, 0.0, 0.5 ],
                 [ 0.5, 0.0, 0.5 ],
                 [ -0.25, 0.5, 0.5 ]
             ), gl.TRIANGLES
         ),
 
-        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, [].concat(
+        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, 
+            [].concat(
                 [ -1.0, -1.0, 0.75 ],
                 [ -1.0, -0.1, -1.0 ],
                 [ -0.1, -0.1, -1.0 ],
                 [ -0.1, -1.0, 0.75 ]
             ), gl.LINE_LOOP),
 
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 10, 10)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 10, 10)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
@@ -121,17 +124,17 @@
         objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].vertices);
 
-        if (!objectsToDraw[i].colors) {
+        if (!Array.isArray(objectsToDraw[i].colors)) {
             // If we have a single color, we expand that into an array
             // of the same color over and over.
+            var colorObj = objectsToDraw[i].colors;
             objectsToDraw[i].colors = [];
-            console.log(objectsToDraw[i]);
             for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3;
                     j < maxj; j += 1) {
                 objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                    objectsToDraw[i].color.r,
-                    objectsToDraw[i].color.g,
-                    objectsToDraw[i].color.b
+                    colorObj.r,
+                    colorObj.g,
+                    colorObj.b
                 );
             }
         }
