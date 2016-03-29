@@ -116,7 +116,9 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES)
+
+        new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
@@ -201,7 +203,7 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set up the rotation matrix.
-        gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 0, 1, 0)));
+        gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 1, 1, 1)));
 
         // Display the objects.
         for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {

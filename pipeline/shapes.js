@@ -5,18 +5,87 @@
  */
 var Shapes = {
 
+    cube: function (side) {
+        var vertices = [];
+        var indices = [];
+        var data = {};
+        var x = side;
+
+        // Create cube vertices
+        vertices = [
+            // Front face
+            [-x, -x, x],
+            [x, -x, x],
+            [x, x, x],
+            [-x, x, x],
+
+            // Back face
+            [-x, -x, -x],
+            [-x, x, -x],
+            [x, x, -x],
+            [x, -x, -x],
+
+            // Top face
+            [-x, x, -x],
+            [-x, x, x],
+            [x, x, x],
+            [x, x, -x],
+
+            // Bottom face
+            [-x, -x, -x],
+            [x, -x, -x],
+            [x, -x, x],
+            [-x, -x, x],
+
+            // Right face
+            [x, -x, -x],
+            [x, x, -x],
+            [x, x, x],
+            [x, -x, x],
+
+            // Left Face
+            [-x, -x, -x],
+            [-x, -x, x],
+            [-x, x, x],
+            [-x, x, -x]
+        ];
+
+        // Create cube indices
+        indices = [
+            [0, 1, 2],
+            [0, 2, 3],
+            [4, 5, 6],
+            [4, 6, 7],
+            [8, 9, 10],
+            [8, 10, 11],
+            [12, 13, 14],
+            [12, 14, 15],
+            [16, 17, 18],
+            [16, 18, 19],
+            [20, 21, 22],
+            [20, 22, 23]
+        ];
+
+        data.vertices = vertices;
+        data.indices = indices;
+        return data;
+    },
+
+    /*
+     * Returns the vertices for a small sphere
+     */
     sphere: function (radius, latBands, longBands) {
         var vertices = [];
         var indices = [];
         var data = {};
 
         // Create sphere vertices
-        for (var latNum = 0; latNum < latBands + 1; latNum++) {
+        for (var latNum = 0; latNum <= latBands; latNum++) {
             var theta = (latNum * Math.PI) / latBands;
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
 
-            for (var longNum = 0; longNum < longBands + 1; longNum++) {
+            for (var longNum = 0; longNum <= longBands; longNum++) {
                 var phi = (longNum * 2 * Math.PI) / longBands;
                 var sinPhi = Math.sin(phi);
                 var cosPhi = Math.cos(phi);
@@ -30,8 +99,8 @@ var Shapes = {
         }
 
         // Create sphere indices
-        for (var latNum = 0; latNum < latBands + 1; latNum++) {
-            for (var longNum = 0; longNum < longBands + 1; longNum++) {
+        for (var latNum = 0; latNum <= latBands; latNum++) {
+            for (var longNum = 0; longNum <= longBands; longNum++) {
                 var top = (latNum * (longBands + 1)) + longNum;
                 var bottom = top + longBands + 1;
 
