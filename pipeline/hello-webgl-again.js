@@ -116,9 +116,11 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
+
+        new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.

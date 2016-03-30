@@ -5,6 +5,57 @@
  */
 var Shapes = {
 
+    /*
+     * Returns the vertices for a small cylinder
+     */
+    cylinder: function (radius, length, radSlices) {
+        var vertices = [];
+        var indices = [];
+        var data = {};
+
+        // Middle of top & bottom circles
+        vertices.push([0, 0, length / 2]);
+        vertices.push([0, 0, -length / 2]);
+
+        for (var radNum = 0; radNum < radSlices + 1; radNum++) {
+            var phi = (radNum * 2 * Math.PI) / radSlices;
+            var x = radius * Math.cos(phi);
+            var y = radius * Math.sin(phi);
+            var z = length / 2;
+
+            vertices.push([x, y, z]);
+            vertices.push([x, y, -z]);
+        }
+
+        for (var radNum = 1; radNum < radSlices + 1; radNum++) {
+            indices.push([0, radNum * 2, (radNum * 2) % (radSlices * 2) + 2]);
+            indices.push([1, radNum * 2 + 1, (radNum * 2) % (radSlices * 2) + 3]);
+        }
+
+        for (var radNum = 2; radNum < radSlices * 2 + 2; radNum++) {
+            if (radNum >= radSlices * 2) {
+                if (radNum % 2 === 0) {
+                    indices.push([radNum, radNum + 1, (radNum + 2) % radSlices]);
+                } else {
+                    indices.push([radNum, radNum + 2 % radSlices, (radNum + 1) % radSlices]);
+                }
+            } else {
+                if (radNum % 2 === 0) {
+                    indices.push([radNum, radNum + 1, radNum + 2]);
+                } else {
+                    indices.push([radNum, radNum + 2, radNum + 1]);
+                }
+            }
+        }
+
+        data.vertices = vertices;
+        data.indices = indices;
+        return data;
+    },
+
+    /*
+     * Returns the vertices for a small cube
+     */
     cube: function (side) {
         var vertices = [];
         var indices = [];
