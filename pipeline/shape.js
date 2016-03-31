@@ -1,9 +1,9 @@
-var Shape = (function (color, vertices, mode) {
+var Shape = (function (color, vertices, mode, children) {
 
     this.colors = color;
     this.vertices = vertices;
     this.mode = mode;
-
+    this.children = children || [];
     /*
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as triangles.

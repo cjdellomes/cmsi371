@@ -116,17 +116,35 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES),
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES)]),
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
     for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
         objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].vertices);
+        for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
+            objectsToDraw[i].children[j].buffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].children[j].vertices);
+            if (!Array.isArray(objectsToDraw[i].children[j].colors)) {
+                var colorObj = objectsToDraw[i].children[j].colors;
+                objectsToDraw[i].children[j].colors = [];
+                for (var k = 0, maxK = objectsToDraw[i].children[k].vertices.length / 3; 
+                        k < maxK; k++) {
+                    objectsToDraw[i].children[j].colors = objectsToDraw[i].children[j].colors.concat(
+                        colorObj.r,
+                        colorObj.g,
+                        colorObj.b
+                    );
+                }
+            }
+            objectsToDraw[i].children[j].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].children[j].colors);
+        }
 
         if (!Array.isArray(objectsToDraw[i].colors)) {
             // If we have a single color, we expand that into an array
@@ -209,6 +227,11 @@
 
         // Display the objects.
         for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+            console.log(objectsToDraw[i]);
+            console.log(objectsToDraw[i].children);
+            for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
+                drawObject(objectsToDraw[i].children[j]);
+            }
             drawObject(objectsToDraw[i]);
         }
 
