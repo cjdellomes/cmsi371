@@ -4,7 +4,24 @@
  */
 (function (canvas) {
 
+    /*
+     * Function for displaying an object and its children.
+     */
+    var displayObjects = function (objects) {
+        for (var i = 0, maxi = objects.length; i < maxi; i++) {
+            displayObjects(objects[i].children);
+            drawObject(objects[i]);
+        }
+    }
+
+    /*
+     * Function for passing an object's and its children's vertices to WebGL.
+     */
     var passVertices = function (object) {
+        for (var i = 0, maxi = object.children.length; i < maxi; i++) {
+            passVertices(object.children[i]);
+        }
+        console.log(object);
         object.buffer = GLSLUtilities.initVertexBuffer(gl, object.vertices);
 
         if (!Array.isArray(object.colors)) {
@@ -21,9 +38,6 @@
             }
         }
         object.colorBuffer = GLSLUtilities.initVertexBuffer(gl, object.colors);
-        for (var i = 0, maxi = object.children.length; i < maxi; i++) {
-            passVertices(object.children[i]);
-        }
     };
     /*
      * This code does not really belong here: it should live
@@ -138,15 +152,18 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES), new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(1, 1, 30)), gl.LINES)]),
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES), new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(1, 1, 30)), gl.LINES)]),
 
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
 
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
+        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
+
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
+            [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES,
+                [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)])])
     ];
 
     // Pass the vertices to WebGL.
-    // Iterate through the array of objects to draw
     for (var i = 0, maxi = objectsToDraw.length; i < maxi; i++) {
         passVertices(objectsToDraw[i]);
     }
@@ -213,12 +230,7 @@
         gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 1, 1, 1)));
 
         // Display the objects.
-        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i++) {
-            for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
-                drawObject(objectsToDraw[i].children[j]);
-            }
-            drawObject(objectsToDraw[i]);
-        }
+        displayObjects(objectsToDraw);
 
         // All done.
         gl.flush();
