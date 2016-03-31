@@ -3,6 +3,28 @@
  * takes the canvas that it will need.
  */
 (function (canvas) {
+
+    var passVertices = function (object) {
+        object.buffer = GLSLUtilities.initVertexBuffer(gl, object.vertices);
+
+        if (!Array.isArray(object.colors)) {
+            //If we have a single color, we expand that into an array
+            // of the same color over and over
+            var colorObj = object.colors;
+            object.colors = [];
+            for (var i = 0, maxi = object.vertices.length / 3; i < maxi; i++) {
+                object.colors = object.colors.concat(
+                    colorObj.r,
+                    colorObj.g,
+                    colorObj.b
+                );
+            }
+        }
+        object.colorBuffer = GLSLUtilities.initVertexBuffer(gl, object.colors);
+        for (var i = 0, maxi = object.children.length; i < maxi; i++) {
+            passVertices(object.children[i]);
+        }
+    };
     /*
      * This code does not really belong here: it should live
      * in a separate library of matrix and transformation
@@ -116,9 +138,7 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, 
-            [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES, 
-                [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cylinder(1, 1, 30)), gl.TRIANGLES)])]),
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES), new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(1, 1, 30)), gl.LINES)]),
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
 
@@ -127,45 +147,8 @@
 
     // Pass the vertices to WebGL.
     // Iterate through the array of objects to draw
-    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].vertices);
-        // Iterate through the current object's array of children
-        for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
-            objectsToDraw[i].children[j].buffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].children[j].vertices);
-            if (!Array.isArray(objectsToDraw[i].children[j].colors)) {
-                var colorObj = objectsToDraw[i].children[j].colors;
-                objectsToDraw[i].children[j].colors = [];
-                for (var k = 0, maxK = objectsToDraw[i].children[k].vertices.length / 3; 
-                        k < maxK; k++) {
-                    objectsToDraw[i].children[j].colors = objectsToDraw[i].children[j].colors.concat(
-                        colorObj.r,
-                        colorObj.g,
-                        colorObj.b
-                    );
-                }
-            }
-            objectsToDraw[i].children[j].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].children[j].colors);
-        }
-
-        if (!Array.isArray(objectsToDraw[i].colors)) {
-            // If we have a single color, we expand that into an array
-            // of the same color over and over.
-            var colorObj = objectsToDraw[i].colors;
-            objectsToDraw[i].colors = [];
-            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3;
-                    j < maxj; j += 1) {
-                objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                    colorObj.r,
-                    colorObj.g,
-                    colorObj.b
-                );
-            }
-        }
-        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].colors);
+    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i++) {
+        passVertices(objectsToDraw[i]);
     }
 
     // Initialize the shaders.
