@@ -116,7 +116,9 @@
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
 
-        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES)]),
+        new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, 
+            [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES, 
+                [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cylinder(1, 1, 30)), gl.TRIANGLES)])]),
 
         //new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
 
@@ -124,9 +126,11 @@
     ];
 
     // Pass the vertices to WebGL.
+    // Iterate through the array of objects to draw
     for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
         objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].vertices);
+        // Iterate through the current object's array of children
         for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
             objectsToDraw[i].children[j].buffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].children[j].vertices);
@@ -226,9 +230,7 @@
         gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 1, 1, 1)));
 
         // Display the objects.
-        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            console.log(objectsToDraw[i]);
-            console.log(objectsToDraw[i].children);
+        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i++) {
             for (var j = 0, maxj = objectsToDraw[i].children.length; j < maxj; j++) {
                 drawObject(objectsToDraw[i].children[j]);
             }
