@@ -120,7 +120,7 @@
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChild(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
+        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
 
     ];
 

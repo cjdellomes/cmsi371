@@ -75,6 +75,13 @@ var Matrix = (function () {
         return product;
     };
 
+    Matrix.prototype.conversion = function () {
+        return this.columnAtIndex(0).concat(
+               this.columnAtIndex(1).concat(
+               this.columnAtIndex(2).concat(
+               this.columnAtIndex(3))));
+    }
+
     // Returns the translation matrix
     Matrix.getTranslationMatrix = function (x, y, z) {
         return new Matrix(
@@ -96,15 +103,6 @@ var Matrix = (function () {
     };
 
     // Returns the rotation matrix
-     /*
-     * This code does not really belong here: it should live
-     * in a separate library of matrix and transformation
-     * functions.  It is here only to show you how matrices
-     * can be used with GLSL.
-     *
-     * Based on the original glRotate reference:
-     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
-     */
     Matrix.getRotationMatrix = function (angle, x, y, z) {
         // In production code, this function should be associated
         // with a matrix object with associated functions.
@@ -153,4 +151,34 @@ var Matrix = (function () {
             1.0
         );
     };
+
+    // Returns an orthorgraphic projection matrix
+    Matrix.getOrthographicMatrix = function (left, right, bottom, top, near, far) {
+        var width = right - left;
+        var height = top - bottom;
+        var depth = far - near;
+
+        return new Matrix(
+            2 / width, 0, 0, (-right - left) / width,
+            0, 2 / height, 0, (-top - bottom) / height,
+            0, 0, -2 / depth, (-far - near) / depth,
+            0, 0, 0, 1
+        );
+    };
+
+    // Returns a frustum projection matrix
+    Matrix.getFrustumMatrix = function (left, right, bottom, top, near, far) {
+        var width = right - left;
+        var height = top - bottom;
+        var depth = far - near;
+
+        return new Matrix(
+            2 * near / width, 0, (right + left) / width, 0,
+            0, 2 * near / height, (top + bottom) / height, 0,
+            0, 0, (-far - near) / depth, -2 * near * far / depth,
+            0, 0, -1, 0
+        );
+    };
+
+    return this;
 });

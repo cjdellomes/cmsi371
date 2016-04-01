@@ -36,7 +36,12 @@ $(function () {
     });
 
     test("TESTING TRANSLATE, SCALE, AND ROTATE", function () {
-        var m = Matrix.getTranslationMatrix(3, 1, 4);
+        var m = new Matrix(0, 1, 2, 3,
+                       4, 5, 6, 7,
+                       8, 9, 10, 11,
+                       12, 13, 14, 15);
+
+        m = new Matrix.getTranslationMatrix(3, 1, 4);
         deepEqual(m.elements,
             [1, 0, 0, 3,
             0, 1, 0, 1,
@@ -44,7 +49,7 @@ $(function () {
             0, 0, 0, 1],
             "Translation Matrix");
 
-        m = Matrix.getScaleMatrix(13, 42, 9);
+        m = new Matrix.getScaleMatrix(13, 42, 9);
         deepEqual(m.elements,
             [13, 0, 0, 0,
             0, 42, 0, 0,
@@ -52,18 +57,13 @@ $(function () {
             0, 0, 0, 1],
             "Scale Matrix");
 
-        m = new Matrix(0, 1, 2, 3,
-                       4, 5, 6, 7,
-                       8, 9, 10, 11,
-                       12, 13, 14, 15);
-
-        m = Matrix.getRotationMatrix(45, 1, 0, 0);
+        m = new Matrix.getRotationMatrix(45, 1, 0, 0);
         deepEqual(m.elements,
             [1, 0,  0, 0,
              0, Math.cos(45 * Math.PI / 180), Math.sin(45 * Math.PI / 180), 0,
              0, -Math.sin(45 * Math.PI / 180), Math.cos(45 * Math.PI / 180), 0,
              0, 0, 0, 1],
-            "Pure rotation matrix by 87 degrees about the x-axis");
+            "Rotation matrix by 87 degrees about the x axis");
     });
 
     test("TESTING MATRIX MULTIPLICATION", function () {
@@ -98,5 +98,24 @@ $(function () {
              109, 178, 46, 63,
              126, 197, 84, 76],
              "Matrix multiplication second test");
+    });
+
+    test("TESTING ORTHOGRAPIC AND FRUSTUM", function () {
+        var m = new Matrix();
+        m = new Matrix.getOrthographicMatrix(-1, 1, -2, 2, -3, 3);
+        deepEqual(m.dimensions(), 16, "Dimensions preserved");
+        deepEqual(m.elements,
+            [1, 0, 0, 0,
+            0, 0.5, 0, 0,
+            0, 0, -(1/3), 0,
+            0, 0, 0, 1],
+            "Matrix orthographic projection");
+        m = new Matrix.getFrustumMatrix(-1, 1, -2, 2, -3, 3);
+        deepEqual(m.elements,
+            [-3, 0, 0, 0,
+            0, -(3/2), 0, 0,
+            0, 0, 0, 3,
+            0, 0, -1, 0],
+            "Matrix frustum projection");
     });
 });
