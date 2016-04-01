@@ -1,3 +1,23 @@
+var Shape = (function (color, vertices, mode, children) {
+    this.colors = color;
+    this.vertices = vertices;
+    this.mode = mode;
+    this.children = children || [];
+
+    Shape.prototype.addChildren = function (kids) {
+        this.children.push(kids);
+    }
+
+    Shape.prototype.addChild = function (kid) {
+        this.children.push(kid);
+    }
+
+    Shape.prototype.removeChild = function (index) {
+        this.children.splice(index, 1);
+    }
+});
+
+
 /*
  * This module defines/generates vertex arrays for certain predefined shapes.
  * The "shapes" are returned as indexed vertices, with utility functions for
@@ -141,9 +161,9 @@ var Shapes = {
                 var sinPhi = Math.sin(phi);
                 var cosPhi = Math.cos(phi);
 
-                var x = cosPhi * sinTheta;
-                var y = cosTheta;
-                var z = sinPhi * sinTheta;
+                var x = radius * cosPhi * sinTheta;
+                var y = radius * cosTheta;
+                var z = radius * sinPhi * sinTheta;
 
                 vertices.push([x, y, z]);
             }
