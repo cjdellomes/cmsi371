@@ -9,11 +9,6 @@ var Shape = (function (color, vertices, mode, children) {
         return this;
     }
 
-    Shape.prototype.addChild = function (kid) {
-        this.children.push(kid);
-        return this;
-    }
-
     Shape.prototype.removeChild = function (index) {
         this.children.splice(index, 1);
         return this;
@@ -37,6 +32,9 @@ var Shapes = {
      * Returns the vertices for a small cylinder
      */
     cylinder: function (radius, length, radSlices) {
+        var radius = radius || 0.5;
+        var length = length || 0.5;
+        var radSlices = radSlices || 20;
         var vertices = [];
         var indices = [];
         var data = {};
@@ -85,6 +83,7 @@ var Shapes = {
      * Returns the vertices for a small cube
      */
     cube: function (side) {
+        var side = side || 0.5;
         var vertices = [];
         var indices = [];
         var data = {};
@@ -154,6 +153,9 @@ var Shapes = {
      * Returns the vertices for a small sphere
      */
     sphere: function (radius, latBands, longBands) {
+        var radius = radius || 0.5;
+        var latBands = latBands || 20;
+        var longBands = longBands || 20;
         var vertices = [];
         var indices = [];
         var data = {};

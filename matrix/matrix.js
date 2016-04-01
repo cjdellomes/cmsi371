@@ -107,7 +107,7 @@ var Matrix = (function () {
         var zs = z * s;
 
         // GL expects its matrices in column major order.
-        return new MAtrix(
+        return new Matrix(
             (x2 * oneMinusC) + c,
             (xy * oneMinusC) + zs,
             (xz * oneMinusC) - ys,
