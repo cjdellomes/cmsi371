@@ -6,14 +6,22 @@ var Shape = (function (color, vertices, mode, children) {
 
     Shape.prototype.addChildren = function (kids) {
         this.children.push(kids);
+        return this;
     }
 
     Shape.prototype.addChild = function (kid) {
         this.children.push(kid);
+        return this;
     }
 
     Shape.prototype.removeChild = function (index) {
         this.children.splice(index, 1);
+        return this;
+    }
+
+    Shape.prototype.clearChildren = function () {
+        this.children = [];
+        return this;
     }
 });
 

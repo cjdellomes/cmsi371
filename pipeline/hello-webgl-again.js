@@ -118,56 +118,10 @@
                 [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
             new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);
 
-    compoundShape.addChild(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
-
-    //console.log(drawThis);
-
     // Build the objects to display.
     var objectsToDraw = [
-        /*new Shape( [].concat(
-                [ 1.0, 0.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 0.0, 1.0 ]
-            ), [].concat(
-                [ 0.0, 0.0, 0.0 ],
-                [ 0.5, 0.0, -0.75 ],
-                [ 0.0, 0.5, 0.0 ]
-            ), gl.TRIANGLES
-        ),
 
-        new Shape({ r: 0.0, g: 1.0, b: 0 }, 
-            [].concat(
-                [ 0.25, 0.0, -0.5 ],
-                [ 0.75, 0.0, -0.5 ],
-                [ 0.25, 0.5, -0.5 ]
-            ), gl.TRIANGLES
-        ),
-
-        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, 
-            [].concat(
-                [ -0.25, 0.0, 0.5 ],
-                [ 0.5, 0.0, 0.5 ],
-                [ -0.25, 0.5, 0.5 ]
-            ), gl.TRIANGLES
-        ),
-
-        new Shape({ r: 0.0, g: 0.0, b: 1.0 }, 
-            [].concat(
-                [ -1.0, -1.0, 0.75 ],
-                [ -1.0, -0.1, -1.0 ],
-                [ -0.1, -0.1, -1.0 ],
-                [ -0.1, -1.0, 0.75 ]
-            ), gl.LINE_LOOP),*/
-
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES),
-
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(2, 20, 20)), gl.LINES, [new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES), new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawLineArray(Shapes.cylinder(1, 1, 30)), gl.LINES)]),
-
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES),
-
-        //new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.cylinder(0.5, 0.5, 40)), gl.LINES)
-
-        compoundShape
+        compoundShape.addChild(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
 
     ];
 
