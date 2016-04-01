@@ -24,5 +24,14 @@ $(function () {
             8, 9, 10, 11,
             3.14, 2.18, 13, 42],
             "Matrix constructor with arguments");
+
+        deepEqual(m.rowAtIndex(0),
+            [0, 1, 2, 3],
+            "Matrix row by index");
+        deepEqual(m.columnAtIndex(0),
+            [0, 4, 8, 3.14],
+            "Matrix column by index");
+        deepEqual(m.elementAtIndex(7), 7,
+            "Matrix element by index");
     });
 });

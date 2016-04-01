@@ -8,6 +8,49 @@ var Matrix = (function () {
     0, 0, 1, 0,
     0, 0, 0, 1];
 
+    // Returns length of matrix array.
+    Matrix.prototype.dimensions = function () {
+        return this.elements.length;
+    };
+
+    // Returns the matrix array of elements
+    Matrix.prototype.elements = function () {
+        return this.elements;
+    };
+
+    // Returns the element at the index
+    Matrix.prototype.elementAtIndex = function (index) {
+        if (index < 0 || index > 15) {
+            throw "Index out of bounds"
+        } else {
+            return this.elements[index];
+        }
+    };
+
+    // Returns the matrix array of elements at the index row
+    Matrix.prototype.rowAtIndex = function (index) {
+        if (index < 0 || index > 3) {
+            throw "Index out of bounds"
+        } else {
+            return [this.elements[0 + index * 4],
+                    this.elements[1 + index * 4],
+                    this.elements[2 + index * 4],
+                    this.elements[3 + index * 4]];
+        }
+    };
+
+    // Returns the matix array of elements at the index column
+    Matrix.prototype.columnAtIndex = function (index) {
+        if (index < 0 || index > 3) {
+            throw "Index out of bounds"
+        } else {
+            return [this.elements[index],
+                    this.elements[index + 4],
+                    this.elements[index + 8],
+                    this.elements[index + 12]];
+        }
+    };
+
     // Returns the translation matrix
     Matrix.getTranslationMatrix = function (x, y, z) {
         return new Matrix(
