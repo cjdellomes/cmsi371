@@ -118,4 +118,16 @@ $(function () {
             0, 0, -1, 0],
             "Matrix frustum projection");
     });
+
+    test("TESTING WEBGL CONVERSION", function () {
+        var m = new Matrix(0, 1, 2, 3,
+                           4, 5, 6, 7,
+                           8, 9, 10, 11,
+                           12, 13, 14, 15);
+        var converted = m.conversion();
+        deepEqual(converted.length, m.dimensions(), "Matrix size preserved");
+        deepEqual(converted,
+            [0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15],
+            "Matrix conversion");
+    });
 });
