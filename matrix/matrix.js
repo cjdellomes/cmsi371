@@ -8,6 +8,12 @@ var Matrix = (function () {
     0, 0, 1, 0,
     0, 0, 0, 1];
 
+    var dimensionsEqual = function (m1, m2) {
+        if (m1.dimensions() !== m2.dimensions()) {
+            throw "Dimensions not equal"
+        }
+    };
+
     // Returns length of matrix array.
     Matrix.prototype.dimensions = function () {
         return this.elements.length;
@@ -49,6 +55,24 @@ var Matrix = (function () {
                     this.elements[index + 8],
                     this.elements[index + 12]];
         }
+    };
+
+    Matrix.prototype.multiply = function (matrix) {
+        var rows = 4;
+        var columns = 4;
+        var product = new Matrix();
+        dimensionsEqual(this, matrix);
+
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < columns; j++) {
+                var sum = 0;
+                for (var k = 0; k < rows; k++) {
+                    sum += this.elementAtIndex((i * 4) + k) * matrix.elementAtIndex((k * 4) + j);
+                }
+                product.elements[(i * 4) + j] = sum;
+            }
+        }
+        return product;
     };
 
     // Returns the translation matrix

@@ -18,7 +18,6 @@
      * Function for passing an object's and its children's vertices to WebGL.
      */
     var passVertices = function (object) {
-        console.log(object);
         for (var i = 0, maxi = object.children.length; i < maxi; i++) {
             passVertices(object.children[i]);
         }
@@ -124,12 +123,6 @@
         compoundShape.addChild(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
 
     ];
-
-    for (var i = 0; i < objectsToDraw.length; i++) {
-
-        console.log(i + " " + objectsToDraw[i]);
-
-    }
 
     // Pass the vertices to WebGL.
     for (var i = 0, maxi = objectsToDraw.length; i < maxi; i++) {
