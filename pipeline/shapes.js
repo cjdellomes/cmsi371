@@ -1,7 +1,8 @@
 var Shape = (function (color, vertices, mode, children) {
-    this.colors = color;
-    this.vertices = vertices;
-    this.mode = mode;
+    var gl = GLSLUtilities.getGL(document.getElementById("hello-webgl"));
+    this.colors = color || { r : 0, g : 0, b : 0 };
+    this.vertices = vertices || Shapes.toRawLineArray(Shapes.icosahedron());
+    this.mode = mode || gl.LINES;
     this.children = children || [];
 
     Shape.prototype.addChildren = function (kids) {
@@ -17,6 +18,9 @@ var Shape = (function (color, vertices, mode, children) {
     Shape.prototype.clearChildren = function () {
         this.children = [];
         return this;
+    }
+    Shape.prototype.getChild = function(index) {
+        return this.children[index];
     }
 });
 

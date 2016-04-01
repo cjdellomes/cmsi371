@@ -2,11 +2,13 @@
 <!-- This web page is a QUnit test harness for our Vector object. -->
 <html>
   <head>
-    <title>Vector Test</title>
+    <title>Shape Test</title>
     <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css" />
   </head>
   <body>
-    <h1>Vector Test Suite</h1>
+    <h1>Shape Test Suite</h1>
+
+    <canvas id="hello-webgl" width="10" height="10"></canvas>
 
     <!-- IDs are predefined by QUnit. -->
     <h2 id="qunit-banner"></h2>
@@ -19,10 +21,13 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="http://code.jquery.com/qunit/qunit-1.22.0.js"></script>
 
+    <script src="glsl-utilities.js"></script>
+
     <!-- The module being tested. -->
-    <script src="vector.js"></script>
+    <script src="../shapes.js"></script>
 
     <!-- The tests themselves. -->
-    <script src="vector-test.js"></script>
+    <script src="shape-test.js"></script>
+
   </body>
 </html>

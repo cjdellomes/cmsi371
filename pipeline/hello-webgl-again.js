@@ -112,15 +112,16 @@
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
-    var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
+    /*var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
             [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(1, 20, 20)), gl.LINES,
                 [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
-            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);
+            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);*/
 
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
+        //compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES))
+        new Shape()
 
     ];
 
