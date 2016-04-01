@@ -6,22 +6,29 @@ var Shape = (function (color, vertices, mode, children) {
     this.children = children || [];
 
     Shape.prototype.addChildren = function (kids) {
-        this.children.push(kids);
+        if (Array.isArray(kids)) {
+            for (var i = 0; i < kids.length; i++) {
+                this.children.push(kids[i]);
+            }
+        } else {
+            this.children.push(kids);
+        }
         return this;
-    }
+    };
 
     Shape.prototype.removeChild = function (index) {
         this.children.splice(index, 1);
         return this;
-    }
+    };
 
     Shape.prototype.clearChildren = function () {
         this.children = [];
         return this;
-    }
+    };
+
     Shape.prototype.getChild = function(index) {
         return this.children[index];
-    }
+    };
 });
 
 
