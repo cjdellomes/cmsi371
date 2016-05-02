@@ -179,42 +179,5 @@ var Matrix = (function () {
         );
     };
 
-    Matrix.getTransformMatrix = function (transforms) {
-        var translate = new Matrix();
-        var scale = new Matrix();
-        var rotate = new Matrix();
-
-        translate = Matrix.getTranslationMatrix(
-            transforms.xt || 0,
-            transforms.yt || 0,
-            transforms.zt || 0);
-
-        scale = Matrix.getScaleMatrix(
-            transforms.xs || 1,
-            transforms.ys || 1,
-            transforms.zs || 1);
-
-        rotate = Matrix.getRotationMatrix(
-            transforms.angle || 0,
-            transforms.xr || 0,
-            transforms.yr || 0,
-            transforms.zr || 0);
-
-        /*if (transforms.rotationVector) {
-            if (transforms.rotationVector.x() === 0 && transforms.rotationVector.y() === 0 && transforms.rotationVector.z() === 0) {
-                rotate = Matrix.getRotationMatrix(
-                    transforms.angle, 1, 1, 1);
-            } else {
-                rotate = Matrix.getRotationMatrix(
-                    transforms.angle || 0,
-                    transforms.rotationVector.x() || 0,
-                    transforms.rotationVector.y() || 0,
-                    transforms.rotationVector.z() || 0);
-            }
-        }*/
-
-        return rotate.multiply(scale.multiply(translate));
-    };
-
     return this;
 });
