@@ -75,12 +75,13 @@ var Matrix = (function () {
         return product;
     };
 
+    // Returns matrix array in column major order, just how WebGL wants it
     Matrix.prototype.conversion = function () {
         return this.columnAtIndex(0).concat(
                this.columnAtIndex(1).concat(
                this.columnAtIndex(2).concat(
                this.columnAtIndex(3))));
-    }
+    };
 
     // Returns the translation matrix
     Matrix.getTranslationMatrix = function (x, y, z) {
@@ -104,8 +105,6 @@ var Matrix = (function () {
 
     // Returns the rotation matrix
     Matrix.getRotationMatrix = function (angle, x, y, z) {
-        // In production code, this function should be associated
-        // with a matrix object with associated functions.
         var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
         var s = Math.sin(angle * Math.PI / 180.0);
         var c = Math.cos(angle * Math.PI / 180.0);
@@ -178,6 +177,43 @@ var Matrix = (function () {
             0, 0, (-far - near) / depth, -2 * near * far / depth,
             0, 0, -1, 0
         );
+    };
+
+    Matrix.getTransformMatrix = function (transforms) {
+        var translate = new Matrix();
+        var scale = new Matrix();
+        var rotate = new Matrix();
+
+        translate = Matrix.getTranslationMatrix(
+            transforms.xt || 0,
+            transforms.yt || 0,
+            transforms.zt || 0);
+
+        scale = Matrix.getScaleMatrix(
+            transforms.xs || 1,
+            transforms.ys || 1,
+            transforms.zs || 1);
+
+        rotate = Matrix.getRotationMatrix(
+            transforms.angle || 0,
+            transforms.xr || 0,
+            transforms.yr || 0,
+            transforms.zr || 0);
+
+        /*if (transforms.rotationVector) {
+            if (transforms.rotationVector.x() === 0 && transforms.rotationVector.y() === 0 && transforms.rotationVector.z() === 0) {
+                rotate = Matrix.getRotationMatrix(
+                    transforms.angle, 1, 1, 1);
+            } else {
+                rotate = Matrix.getRotationMatrix(
+                    transforms.angle || 0,
+                    transforms.rotationVector.x() || 0,
+                    transforms.rotationVector.y() || 0,
+                    transforms.rotationVector.z() || 0);
+            }
+        }*/
+
+        return rotate.multiply(scale.multiply(translate));
     };
 
     return this;

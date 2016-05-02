@@ -4,6 +4,7 @@ var Shape = (function (color, vertices, mode, children) {
     this.vertices = vertices || Shapes.toRawLineArray(Shapes.icosahedron());
     this.mode = mode || gl.LINES;
     this.children = children || [];
+    this.transformation = [];
 
     Shape.prototype.addChildren = function (kids) {
         if (Array.isArray(kids)) {
@@ -26,9 +27,14 @@ var Shape = (function (color, vertices, mode, children) {
         return this;
     };
 
-    Shape.prototype.getChild = function(index) {
+    Shape.prototype.getChild = function (index) {
         return this.children[index];
     };
+
+    Shape.prototype.transform = function (transformation) {
+        this.transformation = transformation;
+        return this;
+    }
 });
 
 
