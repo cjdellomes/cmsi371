@@ -126,39 +126,7 @@
     var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
     var cameraMatrix = gl.getUniformLocation(shaderProgram, "cameraMatrix");
 
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-4, 4, -2, 2, 5, 1000).conversion()));
-
-    /*
-     * Displays an individual object.
-     */
-    // var drawObject = function (object) {
-
-    //     var instanceMatrix = new Matrix();
-    //     var transform = object.transformation;
-
-    //     instanceMatrix = instanceMatrix.multiply(Matrix.getTranslationMatrix(transform.xt, transform.yt, transform.zt));
-    //     console.log(instanceMatrix);
-    //     instanceMatrix = instanceMatrix.multiply(Matrix.getScaleMatrix(transform.xs, transform.ys, transform.zs));
-    //     console.log(instanceMatrix);
-    //     transform.angle = currentRotation;
-    //     instanceMatrix = instanceMatrix.multiply(Matrix.getRotationMatrix(transform.angle, transform.xr, transform.yr, transform.zr));
-    //     console.log(instanceMatrix);
-
-    //     gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(instanceMatrix.conversion()));
-
-    //     //Set the varying normal vectors
-    //     gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
-    //     gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
-
-    //     // Set the varying colors.
-    //     gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
-    //     gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
-
-    //     // Set the varying vertex coordinates.
-    //     gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
-    //     gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
-    //     gl.drawArrays(object.mode, 0, object.vertices.length / 3);
-    // };
+    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-4, 4, -2, 2, 5, 200).conversion()));
 
     var drawObjects = function (objects, parentMatrix) {
         var i;
@@ -168,17 +136,23 @@
 
             // Checks for object transformation
             if (objects[i].transformation) {
+                console.log("potato");
                 var transform = objects[i].transformation;
 
                 instanceMatrix = instanceMatrix.multiply(Matrix.getTranslationMatrix(transform.xt, transform.yt, transform.zt));
+                console.log(instanceMatrix);
                 instanceMatrix = instanceMatrix.multiply(Matrix.getScaleMatrix(transform.xs, transform.ys, transform.zs));
+                console.log(instanceMatrix);
+                transform.angle = currentRotation;
                 instanceMatrix = instanceMatrix.multiply(Matrix.getRotationMatrix(transform.angle, transform.xr, transform.yr, transform.zr));
+                console.log(instanceMatrix);
 
                 // If parent shape had a transformation matrix, instance multiplied with it
                 if (parentMatrix) {
                     instanceMatrix = instanceMatrix.multiply(parentMatrix);
                     gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(instanceMatrix.conversion()));
                 } else {
+                    console.log("apple");
                     gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(instanceMatrix.conversion()));
                 }
             }
@@ -206,10 +180,9 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set up the rotation matrix.
-        gl.uniformMatrix4fv(rotationMatrix, gl.False, new Float32Array(Matrix.getRotationMatrix(currentRotation, 1, 1, 1).conversion()));
+        //gl.uniformMatrix4fv(rotationMatrix, gl.False, new Float32Array(Matrix.getRotationMatrix(currentRotation, 1, 1, 1).conversion()));
 
         // Display the objects.
-        //displayObjects(objectsToDraw);
         drawObjects(objectsToDraw);
 
         // All done.

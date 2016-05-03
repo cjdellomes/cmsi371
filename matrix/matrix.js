@@ -157,6 +157,15 @@ var Matrix = (function () {
         var height = top - bottom;
         var depth = far - near;
 
+        if (right === -left && top === -bottom) {
+            return new Matrix(
+                1 / right, 0, 0, 0,
+                0, 1 / top, 0, 0,
+                0, 0, -2 / depth, -(far + near) / depth,
+                0, 0, 0, 1
+            );
+        }
+
         return new Matrix(
             2 / width, 0, 0, (-right - left) / width,
             0, 2 / height, 0, (-top - bottom) / height,
@@ -171,12 +180,21 @@ var Matrix = (function () {
         var height = top - bottom;
         var depth = far - near;
 
-        return new Matrix(
-            2 * near / width, 0, (right + left) / width, 0,
-            0, 2 * near / height, (top + bottom) / height, 0,
-            0, 0, (-far - near) / depth, -2 * near * far / depth,
-            0, 0, -1, 0
-        );
+        if (right === -left && top === -bottom) {
+            return new Matrix(
+                near / right, 0, 0, 0,
+                0, near / top, 0, 0,
+                0, 0, -(far + near) / depth, (-2 * near * far) / depth,
+                0, 0, -1, 0
+            );
+        } else {
+            return new Matrix(
+                2 * near / width, 0, (right + left) / width, 0,
+                0, 2 * near / height, (top + bottom) / height, 0,
+                0, 0, (-far - near) / depth, -2 * near * far / depth,
+                0, 0, -1, 0
+            );
+        }
     };
 
     return this;
