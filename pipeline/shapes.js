@@ -4,7 +4,7 @@ var Shape = (function (color, vertices, mode, children, transformation) {
     this.vertices = vertices || Shapes.toRawLineArray(Shapes.icosahedron());
     this.mode = mode || gl.LINES;
     this.children = children || [];
-    this.transformation = transformation || {};
+    this.transformation = transformation || undefined;
 
     Shape.prototype.addChildren = function (kids) {
         if (Array.isArray(kids)) {

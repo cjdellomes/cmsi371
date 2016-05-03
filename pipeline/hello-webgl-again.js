@@ -48,33 +48,33 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     var transformObj = {
-        xt: 3,
-        yt: 1,
-        zt: -10,
-        xs: 5,
-        ys: 5,
-        zs: 4,
-        angle: 45,
+        xt: -1,
+        yt: 0,
+        zt: -7,
+        xs: 2,
+        ys: 2,
+        zs: 2,
+        angle: 25,
         xr: 1,
-        yr: 0,
+        yr: 1,
         zr: 0
     };
 
     var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
             [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(1, 20, 20)), gl.LINES,
                 [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
-            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);
+            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)], transformObj);
 
-    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.Lines, [], transformObj);
-    console.log(simpleShape);
+    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.TRIANGLES, [], transformObj);
+    simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES, [], transformObj));
 
     //simpleShape.transform(transformObj);
-    compoundShape.transform(transformObj);
+    //compoundShape.transform(transformObj);
 
     // Build the objects to display.
     var objectsToDraw = [
 
-        //compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES)),
+        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES)),
         simpleShape
 
     ];
