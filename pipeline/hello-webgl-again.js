@@ -47,19 +47,12 @@
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
-    var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
-            [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(1, 20, 20)), gl.LINES,
-                [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
-            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);
-
-    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.Lines);
-
     var transformObj = {
         xt: 3,
         yt: 1,
         zt: -10,
-        xs: 3,
-        ys: 2,
+        xs: 5,
+        ys: 5,
         zs: 4,
         angle: 45,
         xr: 1,
@@ -67,14 +60,22 @@
         zr: 0
     };
 
-    simpleShape.transform(transformObj);
+    var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
+            [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(1, 20, 20)), gl.LINES,
+                [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
+            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)]);
+
+    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.Lines, [], transformObj);
+    console.log(simpleShape);
+
+    //simpleShape.transform(transformObj);
     compoundShape.transform(transformObj);
 
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES)),
-        //simpleShape
+        //compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES)),
+        simpleShape
 
     ];
 
@@ -136,23 +137,18 @@
 
             // Checks for object transformation
             if (objects[i].transformation) {
-                console.log("potato");
                 var transform = objects[i].transformation;
 
                 instanceMatrix = instanceMatrix.multiply(Matrix.getTranslationMatrix(transform.xt, transform.yt, transform.zt));
-                console.log(instanceMatrix);
                 instanceMatrix = instanceMatrix.multiply(Matrix.getScaleMatrix(transform.xs, transform.ys, transform.zs));
-                console.log(instanceMatrix);
                 transform.angle = currentRotation;
                 instanceMatrix = instanceMatrix.multiply(Matrix.getRotationMatrix(transform.angle, transform.xr, transform.yr, transform.zr));
-                console.log(instanceMatrix);
 
                 // If parent shape had a transformation matrix, instance multiplied with it
                 if (parentMatrix) {
                     instanceMatrix = instanceMatrix.multiply(parentMatrix);
                     gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(instanceMatrix.conversion()));
                 } else {
-                    console.log("apple");
                     gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(instanceMatrix.conversion()));
                 }
             }

@@ -1,10 +1,10 @@
-var Shape = (function (color, vertices, mode, children) {
+var Shape = (function (color, vertices, mode, children, transformation) {
     var gl = GLSLUtilities.getGL(document.getElementById("hello-webgl"));
     this.colors = color || { r : 0, g : 0, b : 0 };
     this.vertices = vertices || Shapes.toRawLineArray(Shapes.icosahedron());
     this.mode = mode || gl.LINES;
     this.children = children || [];
-    this.transformation;
+    this.transformation = transformation || {};
 
     Shape.prototype.addChildren = function (kids) {
         if (Array.isArray(kids)) {
