@@ -71,7 +71,7 @@
     var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
     simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.cube(0.5), [], transformObj));
 
-    var s = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.sphere(0.5, 20, 20), [], transformObj);
+    var s = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
 
     // Build the objects to display.
     var objectsToDraw = [
@@ -126,10 +126,15 @@
     gl.enableVertexAttribArray(normalVector);
 
     var modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
+    var xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
+    var yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
     var cameraMatrix = gl.getUniformLocation(shaderProgram, "cameraMatrix");
 
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-3, 3, -3, 3, 5, 100).conversion()));
+    var lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    var lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+
+    //gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-3, 3, -3, 3, 5, 100).conversion()));
 
     var drawObjects = function (objects, parentMatrix) {
         var i;
@@ -177,9 +182,19 @@
     /*
      * Displays the scene.
      */
+    var rotationAroundX = 0.0;
+    var rotationAroundY = 0.0;
     var drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        // Set the overall rotation
+        gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
+                Matrix.getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0).conversion()
+        ));
+        gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
+                Matrix.getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0).conversion()
+        ));
 
         // Display the objects.
         drawObjects(objectsToDraw);
@@ -188,6 +203,31 @@
         gl.flush();
     };
 
+    var rotateScene = function (event) {
+        rotationAroundX = xRotationStart - yDragStart + event.clientY;
+        rotationAroundY = yRotationStart - xDragStart + event.clientX;
+        drawScene();
+    };
+
+    // Because our canvas element will not change size (in this program),
+    // we can set up the projection matrix once, and leave it at that.
+    // Note how this finally allows us to "see" a greater coordinate range.
+    // We keep the vertical range fixed, but change the horizontal range
+    // according to the aspect ratio of the canvas.  We can also expand
+    // the z range now.
+    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getOrthographicMatrix(
+        -8 * (canvas.width / canvas.height),
+        8 * (canvas.width / canvas.height),
+        -8,
+        8,
+        -30,
+        30
+    ).conversion()));
+
+    // Set up our one light source and color.  Note the uniform3fv function.
+    gl.uniform3fv(lightPosition, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
+
     /*
      * Animates the scene.
      */
@@ -195,49 +235,67 @@
     var currentRotation = 0.0;
     var previousTimestamp = null;
 
-    var advanceScene = function (timestamp) {
-        // Check if the user has turned things off.
-        if (!animationActive) {
-            return;
-        }
-
-        // Initialize the timestamp.
-        if (!previousTimestamp) {
-            previousTimestamp = timestamp;
-            window.requestAnimationFrame(advanceScene);
-            return;
-        }
-
-        // Check if it's time to advance.
-        var progress = timestamp - previousTimestamp;
-        if (progress < 30) {
-            // Do nothing if it's too soon.
-            window.requestAnimationFrame(advanceScene);
-            return;
-        }
-
-        // All clear.
-        currentRotation += 0.033 * progress;
-        drawScene();
-        if (currentRotation >= 360.0) {
-            currentRotation -= 360.0;
-        }
-
-        // Request the next frame.
-        previousTimestamp = timestamp;
-        window.requestAnimationFrame(advanceScene);
-    };
+    // Instead of animation, we do interaction: let the mouse control rotation.
+    var xDragStart;
+    var yDragStart;
+    var xRotationStart;
+    var yRotationStart;
+    $(canvas).mousedown(function (event) {
+        xDragStart = event.clientX;
+        yDragStart = event.clientY;
+        xRotationStart = rotationAroundX;
+        yRotationStart = rotationAroundY;
+        $(canvas).mousemove(rotateScene);
+    }).mouseup(function (event) {
+        $(canvas).unbind("mousemove");
+    });
 
     // Draw the initial scene.
     drawScene();
 
-    // Set up the rotation toggle: clicking on the canvas does it.
-    $(canvas).click(function () {
-        animationActive = !animationActive;
-        if (animationActive) {
-            previousTimestamp = null;
-            window.requestAnimationFrame(advanceScene);
-        }
-    });
+    // var advanceScene = function (timestamp) {
+    //     // Check if the user has turned things off.
+    //     if (!animationActive) {
+    //         return;
+    //     }
+
+    //     // Initialize the timestamp.
+    //     if (!previousTimestamp) {
+    //         previousTimestamp = timestamp;
+    //         window.requestAnimationFrame(advanceScene);
+    //         return;
+    //     }
+
+    //     // Check if it's time to advance.
+    //     var progress = timestamp - previousTimestamp;
+    //     if (progress < 30) {
+    //         // Do nothing if it's too soon.
+    //         window.requestAnimationFrame(advanceScene);
+    //         return;
+    //     }
+
+    //     // All clear.
+    //     currentRotation += 0.033 * progress;
+    //     drawScene();
+    //     if (currentRotation >= 360.0) {
+    //         currentRotation -= 360.0;
+    //     }
+
+    //     // Request the next frame.
+    //     previousTimestamp = timestamp;
+    //     window.requestAnimationFrame(advanceScene);
+    // };
+
+    // // Draw the initial scene.
+    // drawScene();
+
+    // // Set up the rotation toggle: clicking on the canvas does it.
+    // $(canvas).click(function () {
+    //     animationActive = !animationActive;
+    //     if (animationActive) {
+    //         previousTimestamp = null;
+    //         window.requestAnimationFrame(advanceScene);
+    //     }
+    // });
 
 }(document.getElementById("hello-webgl")));
