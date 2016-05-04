@@ -7,12 +7,13 @@
     var m = new Matrix();
 
     /*
-     * Function for passing an object's and its children's vertices to WebGL.
+     * Function for passing an object's and its children's vertices, colors, and normal vector to WebGL.
      */
     var passVertices = function (object) {
         for (var i = 0, maxi = object.children.length; i < maxi; i++) {
             passVertices(object.children[i]);
         }
+
         object.buffer = GLSLUtilities.initVertexBuffer(gl, object.vertices);
 
         if (!Array.isArray(object.colors)) {
@@ -62,18 +63,18 @@
         zr: 0
     };
 
-    var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.icosahedron()), gl.LINES,
-            [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(1, 20, 20)), gl.LINES,
-                [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, Shapes.toRawTriangleArray(Shapes.cube(0.5)), gl.TRIANGLES)]),
-            new Shape({ r: 0.0, g: 0.0, b: 0.5}, Shapes.toRawTriangleArray(Shapes.cylinder(0.7, 0.7, 30)), gl.TRIANGLES)], transformObj);
+    var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.icosahedron(),
+            [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.sphere(1, 20, 20),
+                [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.cube(0.5))]),
+            new Shape({ r: 0.0, g: 0.0, b: 0.5}, gl.TRIANGLES, Shapes.cylinder(0.7, 0.7, 30))], transformObj);
 
-    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.TRIANGLES, [], transformObj);
-    simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES, [], transformObj));
+    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
+    simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.cube(0.5), [], transformObj));
 
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.sphere(0.9, 20, 20)), gl.LINES)),
+        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
         simpleShape
 
     ];

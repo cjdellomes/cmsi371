@@ -1,8 +1,12 @@
-var Shape = (function (color, vertices, mode, children, transformation) {
+var Shape = (function (color, mode, vertices, children, transformation) {
     var gl = GLSLUtilities.getGL(document.getElementById("hello-webgl"));
     this.colors = color || { r : 0, g : 0, b : 0 };
-    this.vertices = vertices || Shapes.toRawLineArray(Shapes.icosahedron());
     this.mode = mode || gl.LINES;
+    if (this.mode === gl.LINES) {
+        this.vertices = Shapes.toRawLineArray(vertices) || Shapes.toRawLineArray(Shapes.icosahedron());
+    } else {
+        this.vertices = Shapes.toRawTriangleArray(vertices) || Shapes.toRawTriangleArray(Shapes.icosahedron());
+    }
     this.children = children || [];
     this.transformation = transformation || undefined;
 
@@ -301,7 +305,7 @@ var Shapes = {
         }
 
         return result;
-    }
+    },
 
     /*
      * Utility function for computing normal vectors based on indexed vertices.
@@ -329,7 +333,7 @@ var Shapes = {
         }
 
         return result;
-    }
+    },
 
     /*
      * Utility function for computing unit normal vectors based on indexed vertices.
