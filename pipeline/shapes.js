@@ -16,6 +16,10 @@ var Shape = (function (color, mode, vertices, children, transformation, shinines
     this.transformation = transformation || undefined;
     this.shininess = shininess || 1;
 
+    for (var i = 0; i < this.children.length; i += 1) {
+        this.children[i].shine(this.shininess);
+    }
+
     Shape.prototype.addChildren = function (kids) {
         if (Array.isArray(kids)) {
             for (var i = 0; i < kids.length; i++) {
@@ -47,6 +51,9 @@ var Shape = (function (color, mode, vertices, children, transformation, shinines
     }
     Shape.prototype.shine = function (shine) {
         this.shininess = shine;
+        for (var i = 0; i < this.children.length; i += 1) {
+            this.children[i].shine(this.shininess);
+        }
         return this;
     }
 });

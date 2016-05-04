@@ -67,7 +67,7 @@
     var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.icosahedron(),
             [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.sphere(1, 20, 20),
                 [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.cube(0.5))]),
-            new Shape({ r: 0.0, g: 0.0, b: 0.5}, gl.TRIANGLES, Shapes.cylinder(0.7, 0.7, 30))], transformObj);
+            new Shape({ r: 0.0, g: 0.0, b: 0.5}, gl.TRIANGLES, Shapes.cylinder(0.7, 0.7, 30))], transformObj, 3);
 
     var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
     simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.cube(0.5), [], transformObj));
