@@ -10,8 +10,10 @@
      * Function for passing an object's and its children's vertices, colors, and normal vector to WebGL.
      */
     var passVertices = function (object) {
-        for (var i = 0, maxi = object.children.length; i < maxi; i++) {
-            passVertices(object.children[i]);
+        if (object.children) {
+            for (var i = 0, maxi = object.children.length; i < maxi; i++) {
+                passVertices(object.children[i]);
+            }
         }
 
         object.buffer = GLSLUtilities.initVertexBuffer(gl, object.vertices);
@@ -230,8 +232,8 @@
 
     // Camera matrix
     gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Float32Array(Matrix.getCameraMatrix(
-        new Vector(0, 0, 0.8),
         new Vector(0, 0, 1),
+        new Vector(0, 0, -1),
         new Vector(0, 1, 0)).conversion()));
 
     // Perform rotation calculations
@@ -240,6 +242,12 @@
         rotationAroundY = yRotationStart - xDragStart + event.clientX;
         drawScene();
     };
+
+    function randomInt(min,max) {
+
+        return Math.floor(Math.random()*(max-min+1)+min);
+
+    }
 
     // Because our canvas element will not change size (in this program),
     // we can set up the projection matrix once, and leave it at that.
@@ -286,49 +294,38 @@
     // Draw the initial scene.
     drawScene();
 
-    // var advanceScene = function (timestamp) {
-    //     // Check if the user has turned things off.
-    //     if (!animationActive) {
-    //         return;
-    //     }
+    var arrow = { left: 37, up: 38, right: 39, down: 40 };
+    var delta = 0.05;
+    var xAxis = new Vector(1,0,0);
+    var yAxis = new Vector(0,1,0);
 
-    //     // Initialize the timestamp.
-    //     if (!previousTimestamp) {
-    //         previousTimestamp = timestamp;
-    //         window.requestAnimationFrame(advanceScene);
-    //         return;
-    //     }
-
-    //     // Check if it's time to advance.
-    //     var progress = timestamp - previousTimestamp;
-    //     if (progress < 30) {
-    //         // Do nothing if it's too soon.
-    //         window.requestAnimationFrame(advanceScene);
-    //         return;
-    //     }
-
-    //     // All clear.
-    //     currentRotation += 0.033 * progress;
-    //     drawScene();
-    //     if (currentRotation >= 360.0) {
-    //         currentRotation -= 360.0;
-    //     }
-
-    //     // Request the next frame.
-    //     previousTimestamp = timestamp;
-    //     window.requestAnimationFrame(advanceScene);
-    // };
-
-    // // Draw the initial scene.
-    // drawScene();
-
-    // // Set up the rotation toggle: clicking on the canvas does it.
-    // $(canvas).click(function () {
-    //     animationActive = !animationActive;
-    //     if (animationActive) {
-    //         previousTimestamp = null;
-    //         window.requestAnimationFrame(advanceScene);
-    //     }
-    // });
+    window.addEventListener('keydown', function(event) {
+    event.preventDefault();
+    switch (event.keyCode) {
+    case arrow.up:
+        var randomTransform = {
+            xt: randomInt(-5, 5),
+            yt: randomInt(-5, 5),
+            zt: randomInt(-5, 5),
+            xs: randomInt(1, 3),
+            ys: randomInt(1, 3),
+            zs: randomInt(1, 3),
+            angle: randomInt(0, 90),
+            xr: 1,
+            yr: 0,
+            zr: 1
+        }
+        var addedShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], randomTransform);
+        console.log(addedShape);
+        objectsToDraw.push(addedShape);
+        passVertices(objectsToDraw[i]);
+        drawScene();
+        break;
+    case arrow.down:
+        objectsToDraw.pop();
+        drawScene();
+        break;
+  }
+});
 
 }(document.getElementById("hello-webgl")));
