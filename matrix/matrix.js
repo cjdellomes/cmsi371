@@ -197,5 +197,17 @@ var Matrix = (function () {
         }
     };
 
+    Matrix.getCameraMatrix = function (p, q, up) {
+        var ze = p.subtract(q).unit();
+        var ye = (up.subtract(up.projection(ze))).unit();
+        var xe = ye.cross(ze);
+
+        return new Matrix(
+            xe.x(), xe.y(), xe.z(), -(p.dot(xe)),
+            ye.x(), ye.y(), ye.z(), -(p.dot(ye)),
+            ze.x(), ze.y(), ze.z(), -(p.dot(ze)),
+            0, 0, 0, 1);
+    }
+
     return this;
 });

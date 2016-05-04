@@ -14,7 +14,7 @@ var Shape = (function (color, mode, vertices, children, transformation, shinines
     }
     this.children = children || [];
     this.transformation = transformation || undefined;
-    this.shininess = shininess || 1;
+    this.shininess = shininess || 2;
 
     for (var i = 0; i < this.children.length; i += 1) {
         this.children[i].shine(this.shininess);

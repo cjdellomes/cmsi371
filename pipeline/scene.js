@@ -52,34 +52,47 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     var transformObj = {
-        xt: -1,
+        xt: -4,
         yt: 0,
         zt: -7,
-        xs: 2,
-        ys: 2,
-        zs: 2,
+        xs: 1,
+        ys: 1,
+        zs: 1,
         angle: 25,
         xr: 1,
         yr: 1,
         zr: 0
     };
 
+    var transformObj2 = {
+        xt: 1,
+        yt: 3,
+        zt: -4,
+        xs: 3,
+        ys: 2,
+        zs: 1,
+        angle: 45,
+        xr: 1,
+        yr: 1,
+        zr: 0
+    }
+
     var compoundShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.icosahedron(),
             [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.sphere(1, 20, 20),
                 [new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.cube(0.5))]),
             new Shape({ r: 0.0, g: 0.0, b: 0.5}, gl.TRIANGLES, Shapes.cylinder(0.7, 0.7, 30))], transformObj, 3);
 
-    var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
+    var simpleShape = new Shape({ r: 0.0, g: 0.0, b: 0.7 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
     simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.cube(0.5), [], transformObj));
 
-    var s = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
+    var s = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj2);
 
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20)))
-        //simpleShape
-        //s
+        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
+        simpleShape,
+        s
 
     ];
 
@@ -132,6 +145,7 @@
     var xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
     var yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+
     var cameraMatrix = gl.getUniformLocation(shaderProgram, "cameraMatrix");
 
     var lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
@@ -213,6 +227,12 @@
         // All done.
         gl.flush();
     };
+
+    // Camera matrix
+    gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Float32Array(Matrix.getCameraMatrix(
+        new Vector(0, 0, 0.8),
+        new Vector(0, 0, 1),
+        new Vector(0, 1, 0)).conversion()));
 
     // Perform rotation calculations
     var rotateScene = function (event) {
