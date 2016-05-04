@@ -32,6 +32,7 @@
 
         object.normalBuffer = GLSLUtilities.initVertexBuffer(gl, object.normals);
         object.colorBuffer = GLSLUtilities.initVertexBuffer(gl, object.colors);
+        object.specularBuffer = GLSLUtilities.initVertexBuffer(gl, object.colors);
     };
 
     // Grab the WebGL rendering context.
@@ -76,9 +77,9 @@
     // Build the objects to display.
     var objectsToDraw = [
 
-        //compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
+        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20)))
         //simpleShape
-        s
+        //s
 
     ];
 
@@ -120,8 +121,10 @@
     // Hold on to the important variables within the shaders.
     var vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    var vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
-    gl.enableVertexAttribArray(vertexColor);
+    var vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
+    gl.enableVertexAttribArray(vertexDiffuseColor);
+    var vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
+    gl.enableVertexAttribArray(vertexSpecularColor);
     var normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
 
@@ -133,6 +136,8 @@
 
     var lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     var lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+    var lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
+    var shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     //gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-3, 3, -3, 3, 5, 100).conversion()));
 
@@ -166,7 +171,13 @@
 
             // Set the varying colors.
             gl.bindBuffer(gl.ARRAY_BUFFER, objects[i].colorBuffer);
-            gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(vertexDiffuseColor, 3, gl.FLOAT, false, 0, 0);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, objects[i].specularBuffer);
+            gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
+
+            // Set the shininess.
+            gl.uniform1f(shininess, objects[i].shininess);
 
             // Set the varying vertex coordinates.
             gl.bindBuffer(gl.ARRAY_BUFFER, objects[i].buffer);
@@ -203,6 +214,7 @@
         gl.flush();
     };
 
+    // Perform rotation calculations
     var rotateScene = function (event) {
         rotationAroundX = xRotationStart - yDragStart + event.clientY;
         rotationAroundY = yRotationStart - xDragStart + event.clientX;
@@ -224,9 +236,10 @@
         30
     ).conversion()));
 
-    // Set up our one light source and color.  Note the uniform3fv function.
-    gl.uniform3fv(lightPosition, [1.0, 1.0, 1.0]);
+    // Set up our one light source and its colors.
+    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
     /*
      * Animates the scene.

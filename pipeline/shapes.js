@@ -1,4 +1,4 @@
-var Shape = (function (color, mode, vertices, children, transformation) {
+var Shape = (function (color, mode, vertices, children, transformation, shininess) {
     var gl = GLSLUtilities.getGL(document.getElementById("hello-webgl"));
     this.colors = color || { r : 0, g : 0, b : 0 };
     this.mode = mode || gl.LINES;
@@ -14,6 +14,7 @@ var Shape = (function (color, mode, vertices, children, transformation) {
     }
     this.children = children || [];
     this.transformation = transformation || undefined;
+    this.shininess = shininess || 1;
 
     Shape.prototype.addChildren = function (kids) {
         if (Array.isArray(kids)) {
@@ -42,6 +43,10 @@ var Shape = (function (color, mode, vertices, children, transformation) {
 
     Shape.prototype.transform = function (transformation) {
         this.transformation = transformation;
+        return this;
+    }
+    Shape.prototype.shine = function (shine) {
+        this.shininess = shine;
         return this;
     }
 });
