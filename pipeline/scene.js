@@ -71,11 +71,14 @@
     var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], transformObj);
     simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.cube(0.5), [], transformObj));
 
+    var s = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.LINES, Shapes.sphere(0.5, 20, 20), [], transformObj);
+
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
-        simpleShape
+        //compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
+        //simpleShape
+        s
 
     ];
 

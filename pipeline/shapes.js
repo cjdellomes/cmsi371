@@ -2,6 +2,11 @@ var Shape = (function (color, mode, vertices, children, transformation) {
     var gl = GLSLUtilities.getGL(document.getElementById("hello-webgl"));
     this.colors = color || { r : 0, g : 0, b : 0 };
     this.mode = mode || gl.LINES;
+    if (vertices) {
+        this.normals = Shapes.toUnitNormalArray(vertices);
+    } else {
+        this.normals = Shapes.toUnitNormalArray(Shapes.icosahedron());
+    }
     if (this.mode === gl.LINES) {
         this.vertices = Shapes.toRawLineArray(vertices) || Shapes.toRawLineArray(Shapes.icosahedron());
     } else {
@@ -201,8 +206,8 @@ var Shapes = {
         }
 
         // Create sphere indices
-        for (var latNum = 0; latNum <= latBands; latNum++) {
-            for (var longNum = 0; longNum <= longBands; longNum++) {
+        for (var latNum = 0; latNum <= latBands-1; latNum++) {
+            for (var longNum = 0; longNum <= longBands-1; longNum++) {
                 var top = (latNum * (longBands + 1)) + longNum;
                 var bottom = top + longBands + 1;
 
@@ -210,6 +215,7 @@ var Shapes = {
                 indices.push([bottom, bottom + 1, top + 1]);
             }
         }
+
         data.vertices = vertices;
         data.indices = indices;
         return data;
@@ -328,7 +334,7 @@ var Shapes = {
 
             // Then use this for every vertex in the current face
             for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
-                result = result.concat([normal.x(), normal.y(), normal.z()]);
+                result = result.concat([normalVector.x(), normalVector.y(), normalVector.z()]);
             }
         }
 
@@ -347,8 +353,8 @@ var Shapes = {
             // For each vertec
             for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 var p = indexedVertices.vertices[indexedVertices.indices[i][j]];
-                var normal = new Vector(p[0], p[1], p[2]).unit();
-                result = result.concat([normal.x(), normal.y(), normal.z()]);
+                var normalVector = new Vector(p[0], p[1], p[2]).unit();
+                result = result.concat([normalVector.x(), normalVector.y(), normalVector.z()]);
             }
         } 
 
