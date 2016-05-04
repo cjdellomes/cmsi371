@@ -28,6 +28,8 @@
                 );
             }
         }
+
+        object.normalBuffer = GLSLUtilities.initVertexBuffer(gl, object.normals);
         object.colorBuffer = GLSLUtilities.initVertexBuffer(gl, object.colors);
     };
 
@@ -67,9 +69,6 @@
 
     var simpleShape = new Shape({ r: 0.0, g: 0.5, b: 0.0}, Shapes.toRawTriangleArray(Shapes.sphere(0.5, 20, 20)), gl.TRIANGLES, [], transformObj);
     simpleShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, Shapes.toRawLineArray(Shapes.cube(0.5)), gl.LINES, [], transformObj));
-
-    //simpleShape.transform(transformObj);
-    //compoundShape.transform(transformObj);
 
     // Build the objects to display.
     var objectsToDraw = [
@@ -119,15 +118,14 @@
     gl.enableVertexAttribArray(vertexPosition);
     var vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
-    //var normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
-    //gl.enableVertexAttribArray(normalVector);
+    var normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    gl.enableVertexAttribArray(normalVector);
 
-    var rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
     var modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
     var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
     var cameraMatrix = gl.getUniformLocation(shaderProgram, "cameraMatrix");
 
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-4, 4, -2, 2, 5, 200).conversion()));
+    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getFrustumMatrix(-3, 3, -3, 3, 5, 100).conversion()));
 
     var drawObjects = function (objects, parentMatrix) {
         var i;
@@ -153,6 +151,10 @@
                 }
             }
 
+            // Set the varying normal vectors
+            gl.bindBuffer(gl.ARRAY_BUFFER, objects[i].normalBuffer);
+            gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
+
             // Set the varying colors.
             gl.bindBuffer(gl.ARRAY_BUFFER, objects[i].colorBuffer);
             gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -174,9 +176,6 @@
     var drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        // Set up the rotation matrix.
-        //gl.uniformMatrix4fv(rotationMatrix, gl.False, new Float32Array(Matrix.getRotationMatrix(currentRotation, 1, 1, 1).conversion()));
 
         // Display the objects.
         drawObjects(objectsToDraw);

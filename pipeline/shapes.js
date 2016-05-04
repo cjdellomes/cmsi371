@@ -303,4 +303,52 @@ var Shapes = {
         return result;
     }
 
+    /*
+     * Utility function for computing normal vectors based on indexed vertices.
+     */
+
+    toNormalArray: function (indexedVertices) {
+        var result = [];
+
+        // For each face
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            //form vectors from first and second then second and third vertices
+            var p0 = indexedVertices.vertices[indexedVertices.indices[i][0]];
+            var p1 = indexedVertices.vertices[indexedVertices.indices[i][1]];
+            var p2 = indexedVertices.vertices[indexedVertices.indices[i][2]];
+
+            var v0 = new Vector(p0[0], p0[1], p0[2]);
+            var v1 = new Vector(p1[0], p1[1], p1[2]).subtract(v0);
+            var v2 = new Vector(p2[0], p2[1], p2[2]).subtract(v0);
+            var normalVector = v1.cross(v2).unit();
+
+            // Then use this for every vertex in the current face
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+                result = result.concat([normal.x(), normal.y(), normal.z()]);
+            }
+        }
+
+        return result;
+    }
+
+    /*
+     * Utility function for computing unit normal vectors based on indexed vertices.
+    */
+
+    toUnitNormalArray: function (indexedVertices) {
+        var result = [];
+
+        // For each face
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            // For each vertec
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+                var p = indexedVertices.vertices[indexedVertices.indices[i][j]];
+                var normal = new Vector(p[0], p[1], p[2]).unit();
+                result = result.concat([normal.x(), normal.y(), normal.z()]);
+            }
+        } 
+
+        return result;
+    }
+
 };
