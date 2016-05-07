@@ -92,9 +92,9 @@
     // Build the objects to display.
     var objectsToDraw = [
 
-        compoundShape.addChildren(new Shape({ r: 0.5, g: 0.0, b: 0.0 }, gl.LINES, Shapes.sphere(0.9, 20, 20))),
+        compoundShape,
         simpleShape,
-        s
+        s,
 
     ];
 
@@ -324,9 +324,7 @@
 
         children = [];
         if (!parent) {
-            for (var i = 0, childLimit = randomInt(0, 2); i < childLimit; i += 1) {
-                children.push(randomShape(true));
-            }
+            children.push(randomShape(true));
         }
 
         transform = randomTransform();
