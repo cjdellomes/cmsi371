@@ -256,12 +256,12 @@
     // according to the aspect ratio of the canvas.  We can also expand
     // the z range now.
     gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.getOrthographicMatrix(
-        -8 * (canvas.width / canvas.height),
-        8 * (canvas.width / canvas.height),
-        -8,
-        8,
-        -30,
-        30
+        -10 * (canvas.width / canvas.height),
+        10 * (canvas.width / canvas.height),
+        -10,
+        10,
+        -50,
+        1000
     ).conversion()));
 
     // Set up our one light source and its colors.
@@ -291,6 +291,50 @@
         $(canvas).unbind("mousemove");
     });
 
+    // Returns a random transform object
+    var randomTransform = function () {
+        return {
+            xt: randomInt(-2, 2),
+            yt: randomInt(-2, 2),
+            zt: randomInt(-2, 2),
+            xs: randomInt(1, 2),
+            ys: randomInt(1, 2),
+            zs: randomInt(1, 2),
+            angle: randomInt(0, 45),
+            xr: 1,
+            yr: 0,
+            zr: 1
+        }
+    }
+
+    // Returns a random shape
+    var randomShape = function (parent) {
+        var color, mode, shape, children, transform;
+
+        color = {
+            r: Math.random(),
+            g: Math.random(),
+            b: Math.random(),
+        }
+
+        mode = gl.TRIANGLES;
+
+        shape = [Shapes.cylinder, Shapes.cube, Shapes.sphere, Shapes.icosahedron];
+        shape = shape[randomInt(0, 3)]();
+
+        children = [];
+        if (!parent) {
+            for (var i = 0, childLimit = randomInt(0, 2); i < childLimit; i += 1) {
+                children.push(randomShape(true));
+            }
+        }
+
+        transform = randomTransform();
+
+        return new Shape(color, mode, shape, children, transform);
+
+    }
+
     // Draw the initial scene.
     drawScene();
 
@@ -303,19 +347,7 @@
     event.preventDefault();
     switch (event.keyCode) {
     case arrow.up:
-        var randomTransform = {
-            xt: randomInt(-5, 5),
-            yt: randomInt(-5, 5),
-            zt: randomInt(-5, 5),
-            xs: randomInt(1, 3),
-            ys: randomInt(1, 3),
-            zs: randomInt(1, 3),
-            angle: randomInt(0, 90),
-            xr: 1,
-            yr: 0,
-            zr: 1
-        }
-        var addedShape = new Shape({ r: 0.0, g: 0.5, b: 0.0 }, gl.TRIANGLES, Shapes.sphere(0.5, 20, 20), [], randomTransform);
+        var addedShape = randomShape();
         console.log(addedShape);
         objectsToDraw.push(addedShape);
         passVertices(objectsToDraw[i]);
